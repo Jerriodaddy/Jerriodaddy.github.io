@@ -33,6 +33,7 @@ html(lang=config.language)
         |   , theme: 'dark'
         | });
     link(rel="stylesheet", href=config.root + "css/arknights.css")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
     if theme.stylesheets !== undefined && theme.stylesheets.length > 0
       //- stylesheets list from _config.yml
       each url in theme.stylesheets
@@ -62,7 +63,16 @@ html(lang=config.language)
           a(href=config.root)#logo
             img(src=asideLogo, alt="Logo")
           h1#Dr
-            a(href= theme.aside.dr)=' Dr.' + config.author
+            a(href= theme.aside.dr)='Aka. ' + config.author
+
+          section#link
+            a(href="https://github.com/Jerriodaddy")
+              i.fa.fa-github  Github 
+            span 
+            a(href="https://blog.csdn.net/qq_41835496"): i.fa.fa-bullseye  CSDN 
+            span 
+            a(href="mailto:jerrio20@outlook.com"): i.fa.fa-envelope  jerrio20@outlook.com
+
           section#total
             a#total-archives(href= config.root + "archives")
               span.total-title Archives Total:
@@ -81,15 +91,15 @@ html(lang=config.language)
               span.text-title= title
               span.text-content= content
             wbr
-          wbr
-          nobr published with&nbsp;
-            a(href='http://hexo.io') Hexo&nbsp;
-          wbr
-          nobr Theme&nbsp;
-            a(href='https://github.com/Yue-plus/hexo-theme-arknights') Arknight&nbsp;
-          wbr
-          nobr by&nbsp;
-            a(href='https://github.com/Yue-plus') Yue_plus
+          //- wbr
+          //- nobr published with&nbsp;
+          //-   a(href='http://hexo.io') Hexo&nbsp;
+          //- wbr
+          //- nobr Theme&nbsp;
+          //-   a(href='https://github.com/Yue-plus/hexo-theme-arknights') Arknight&nbsp;
+          //- wbr
+          //- nobr by&nbsp;
+          //-   a(href='https://github.com/Yue-plus') Yue_plus
     if theme.canvas_dust
       canvas#canvas-dust
     script(src=config.root + "js/arknights.js")
