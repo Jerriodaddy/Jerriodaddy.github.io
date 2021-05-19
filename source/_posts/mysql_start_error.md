@@ -14,6 +14,16 @@ category: [Debug]
 $ brew upgrade 
 ```
 <!-- more -->
+
+**错误关键句**：
+1. .dyld: Library not loaded: /usr/local/opt/openssl/lib/libssl.1.0.0.dylib
+2. ERROR! The server quit without updating PID file
+
+**解决办法简述**
+```
+$ brew upgrade 
+```
+
 **详细错误提示**
 ```
 dyld: Library not loaded: /usr/local/opt/openssl/lib/libssl.1.0.0.dylib

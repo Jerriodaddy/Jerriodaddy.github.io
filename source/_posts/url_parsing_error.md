@@ -4,13 +4,15 @@ date: "2019-11-27 18:09:34"
 tags: [小程序, Error] 
 category: Debug
 ---
+![截图1](https://img-blog.csdnimg.cn/20191127172333593.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxODM1NDk2,size_16,color_FFFFFF,t_70)
+
+在小程序 A->B 页面跳转时，B页面对A界面传入参数解析失败, 打印传参结果发现...
+<!-- more -->
 
 今天发现一个问题，记录一下。
 在小程序 A->B 页面跳转时，B页面对A界面传入参数解析失败, 打印传参结果发现
 
 ![截图1](https://img-blog.csdnimg.cn/20191127172333593.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxODM1NDk2,size_16,color_FFFFFF,t_70)
-
-<!-- more --> 
 
 数据在 faceImg 处被截断。 faceImg 原数据为 https://timgsa.baidu.com/timg?image&quality=80&size... .jpeg(太长了我就截取了部分)
 首先排除字符串过长溢出的情况（因为这段输出太短不至于溢出）
