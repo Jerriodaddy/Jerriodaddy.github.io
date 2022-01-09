@@ -1,61 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>抗击 kdevtmpfs 挖矿病毒篇</title>
-    <url>/2020/09/10/fight-with-kdevtmpfs-virus/</url>
-    <content><![CDATA[<img src=2020/09/10/fight-with-kdevtmpfs-virus/virus.jpeg style="width:85%;"/>
-
-<!-- ![virus](2020/09/10/fight-with-kdevtmpfs-virus/virus.jpeg) -->
-
-<p>Kdevtmpfs 是一个偷偷运行在服务器上，占用服务器资源进行挖矿的病毒。我有幸遭中了一次，本篇记录了我与它斗智斗勇的过程…</p>
-<span id="more"></span>
-<p>系统环境：Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0-186-generic x86_64)</p>
-<h3 id="病毒行为："><a href="#病毒行为：" class="headerlink" title="病毒行为："></a>病毒行为：</h3><ul>
-<li>占用 90+ CPU使用率进行挖矿</li>
-<li>偷偷设置定时任务（crontab -l）</li>
-<li>通过一俄罗斯服务器（93.189.43.3）偷偷下载脚本</li>
-<li>守护进程 kinsing 存在 /var/tmp</li>
-<li>挖矿进程 kdevtmpfsi 存在 /tmp</li>
-<li>有个进程名为 kdevtmpfs 的主进程是系统的 kthreadd，重启后还存在 (这个貌似不是病毒，因为我运行另一台正常服务器也有此进程，应该是病毒模仿此进程的名字)</li>
-</ul>
-<h3 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h3><ol>
-<li>删除守护进程 $ sudo rm /var/tmp/kinsing </li>
-<li>删除挖矿进程 $ sudo rm /tmp/kdevtmpfsi</li>
-<li>清空定时任务 “$crontab -e”，  “$sudo crontab -e”，这两个都看一下，分别对应当前用户和系统用户。</li>
-<li>Kill kinsing 和 kdevtmpfsi 进程。</li>
-<li>把 195.3.146.118; 45.67.230.68; 93.189.43.3 加入黑名单</li>
-<li>Redis &amp; Scrapyd 安全配置</li>
-</ol>
-<h3 id="相关文章："><a href="#相关文章：" class="headerlink" title="相关文章："></a>相关文章：</h3><ol>
-<li>服务器遭 kdevtmpfsi挖矿程序入侵的分析与解决<br><a href="http://www.shareyuanma.com/source/article/newarticle/5054.html">http://www.shareyuanma.com/source/article/newarticle/5054.html</a></li>
-<li>Linux 开机(脚本)启动顺序<br><a href="https://www.jianshu.com/p/e1442913eb0e">https://www.jianshu.com/p/e1442913eb0e</a></li>
-<li>Redis 安全配置<br><a href="https://help.aliyun.com/knowledge_detail/37447.html?spm=a2c4g.11186631.2.2.828c1848kuRv6p">https://help.aliyun.com/knowledge_detail/37447.html?spm=a2c4g.11186631.2.2.828c1848kuRv6p</a></li>
-<li>利用Redis写入SSH公钥获取服务器登陆权限<br><a href="http://lichengxiao.cn/17.html">http://lichengxiao.cn/17.html</a></li>
-<li>处理 kdevtmpfsi 挖矿病毒<br><a href="https://blog.csdn.net/amaxiaochen/article/details/103742982">https://blog.csdn.net/amaxiaochen/article/details/103742982</a></li>
-</ol>
-<hr>
-<p>2020/7/28<br>发现病毒行为并进行排查。<br>通过 iftop 发现服务器长时间和 93.189.43.3 有着低速率的数据传输，应该是在偷偷下载脚本。<br>通过 “netstat -atp” 发现 93.189.43.3 对应的 PID 是 wget。</p>
-<p><img src="1.jpg" alt="1"></p>
-<p>结合之前发现病毒偷偷设置的定时任务，确定了其中的联系。</p>
-<p><img src="2.jpg" alt="2"></p>
-<p>守护进程运行中，ip 也对上了。</p>
-<p><img src="3.jpg" alt="3"></p>
-<p>根据[1]的描述是redis被入侵了，但我未证实。<br>删除 kinsing，kdevtmpfs 并清空 crontab 后过一段时间定时任务（crontab）还是会自动被写入，猜测被植入了后门或是脚本文件未清除干净。执行了解决方法1~4后，暂无复发情况，先观察两天再说。<br>2020/8/1<br>今天病毒又出现了，所属从用户变成了root，由内核进程 /sbin/init 创建（ppid = 1）。<br>查看了 /etc/init.d/rc 启动脚本文件并没有发现病毒自启代码。</p>
-<p>2020/8/6<br>参考[3][4]，发现了用户目录下/.ssh/known_hosts文件里存在陌生公钥，删除之并加固redis安全策略。但好像还是不起作用，病毒还能通过某种方式，自动添加定时任务，向195.3.146.118 下载病毒脚本，然后向 45.67.230.68 下载 kinsing。</p>
-<p><img src="4.jpg" alt="4"></p>
-<p>无奈只能终极解决办法，封禁相关IP（195.3.146.118; 45.67.230.68; 93.189.43.3）</p>
-<p>2020/8/11<br>找到了入侵入口— scrapyd 服务器<br>原因：scrapyd 的 api 开放后，任何人都可以上传任何 python 代码并且通过 scrapyd 让其在服务器运行，并且 scrapyd 的权限是 root 。现认为，攻击者通过此方式下载并执行挖矿病毒。但除此之外的攻击者做没做其他事情，暂且未知。<br>线索：通过 ps aux 查看到病毒进程 kingdevfsi 和 kingsing 通过 systemctl … status 查看到这两个进程关联到scrapyd进程 并且上面图中的 wget 进程也同样关联到 scrapyd 进程，遂认为 scrapyd 有很大嫌疑。<br>方案：关闭scrapyd服务，清除本地病毒。</p>
-]]></content>
-      <categories>
-        <category>服务器运维</category>
-        <category>Cybersecurity</category>
-      </categories>
-      <tags>
-        <tag>Security</tag>
-        <tag>Virus</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Authentication and Authorization: Spring Security + OAuth2</title>
     <url>/2021/04/27/authentication-and-authorization/</url>
     <content><![CDATA[<p>Generally speaking, application access security is developed around the two core concepts of <strong>Authentication</strong> and <strong>Authorization</strong>. You first need to determine the identity of the user, and determine whether the user has the authority to access the specified resource…</p>
@@ -129,6 +74,61 @@
       </tags>
   </entry>
   <entry>
+    <title>抗击 kdevtmpfs 挖矿病毒篇</title>
+    <url>/2020/09/10/fight-with-kdevtmpfs-virus/</url>
+    <content><![CDATA[<img src=2020/09/10/fight-with-kdevtmpfs-virus/virus.jpeg style="width:85%;"/>
+
+<!-- ![virus](2020/09/10/fight-with-kdevtmpfs-virus/virus.jpeg) -->
+
+<p>Kdevtmpfs 是一个偷偷运行在服务器上，占用服务器资源进行挖矿的病毒。我有幸遭中了一次，本篇记录了我与它斗智斗勇的过程…</p>
+<span id="more"></span>
+<p>系统环境：Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0-186-generic x86_64)</p>
+<h3 id="病毒行为："><a href="#病毒行为：" class="headerlink" title="病毒行为："></a>病毒行为：</h3><ul>
+<li>占用 90+ CPU使用率进行挖矿</li>
+<li>偷偷设置定时任务（crontab -l）</li>
+<li>通过一俄罗斯服务器（93.189.43.3）偷偷下载脚本</li>
+<li>守护进程 kinsing 存在 /var/tmp</li>
+<li>挖矿进程 kdevtmpfsi 存在 /tmp</li>
+<li>有个进程名为 kdevtmpfs 的主进程是系统的 kthreadd，重启后还存在 (这个貌似不是病毒，因为我运行另一台正常服务器也有此进程，应该是病毒模仿此进程的名字)</li>
+</ul>
+<h3 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h3><ol>
+<li>删除守护进程 $ sudo rm /var/tmp/kinsing </li>
+<li>删除挖矿进程 $ sudo rm /tmp/kdevtmpfsi</li>
+<li>清空定时任务 “$crontab -e”，  “$sudo crontab -e”，这两个都看一下，分别对应当前用户和系统用户。</li>
+<li>Kill kinsing 和 kdevtmpfsi 进程。</li>
+<li>把 195.3.146.118; 45.67.230.68; 93.189.43.3 加入黑名单</li>
+<li>Redis &amp; Scrapyd 安全配置</li>
+</ol>
+<h3 id="相关文章："><a href="#相关文章：" class="headerlink" title="相关文章："></a>相关文章：</h3><ol>
+<li>服务器遭 kdevtmpfsi挖矿程序入侵的分析与解决<br><a href="http://www.shareyuanma.com/source/article/newarticle/5054.html">http://www.shareyuanma.com/source/article/newarticle/5054.html</a></li>
+<li>Linux 开机(脚本)启动顺序<br><a href="https://www.jianshu.com/p/e1442913eb0e">https://www.jianshu.com/p/e1442913eb0e</a></li>
+<li>Redis 安全配置<br><a href="https://help.aliyun.com/knowledge_detail/37447.html?spm=a2c4g.11186631.2.2.828c1848kuRv6p">https://help.aliyun.com/knowledge_detail/37447.html?spm=a2c4g.11186631.2.2.828c1848kuRv6p</a></li>
+<li>利用Redis写入SSH公钥获取服务器登陆权限<br><a href="http://lichengxiao.cn/17.html">http://lichengxiao.cn/17.html</a></li>
+<li>处理 kdevtmpfsi 挖矿病毒<br><a href="https://blog.csdn.net/amaxiaochen/article/details/103742982">https://blog.csdn.net/amaxiaochen/article/details/103742982</a></li>
+</ol>
+<hr>
+<p>2020/7/28<br>发现病毒行为并进行排查。<br>通过 iftop 发现服务器长时间和 93.189.43.3 有着低速率的数据传输，应该是在偷偷下载脚本。<br>通过 “netstat -atp” 发现 93.189.43.3 对应的 PID 是 wget。</p>
+<p><img src="1.jpg" alt="1"></p>
+<p>结合之前发现病毒偷偷设置的定时任务，确定了其中的联系。</p>
+<p><img src="2.jpg" alt="2"></p>
+<p>守护进程运行中，ip 也对上了。</p>
+<p><img src="3.jpg" alt="3"></p>
+<p>根据[1]的描述是redis被入侵了，但我未证实。<br>删除 kinsing，kdevtmpfs 并清空 crontab 后过一段时间定时任务（crontab）还是会自动被写入，猜测被植入了后门或是脚本文件未清除干净。执行了解决方法1~4后，暂无复发情况，先观察两天再说。<br>2020/8/1<br>今天病毒又出现了，所属从用户变成了root，由内核进程 /sbin/init 创建（ppid = 1）。<br>查看了 /etc/init.d/rc 启动脚本文件并没有发现病毒自启代码。</p>
+<p>2020/8/6<br>参考[3][4]，发现了用户目录下/.ssh/known_hosts文件里存在陌生公钥，删除之并加固redis安全策略。但好像还是不起作用，病毒还能通过某种方式，自动添加定时任务，向195.3.146.118 下载病毒脚本，然后向 45.67.230.68 下载 kinsing。</p>
+<p><img src="4.jpg" alt="4"></p>
+<p>无奈只能终极解决办法，封禁相关IP（195.3.146.118; 45.67.230.68; 93.189.43.3）</p>
+<p>2020/8/11<br>找到了入侵入口— scrapyd 服务器<br>原因：scrapyd 的 api 开放后，任何人都可以上传任何 python 代码并且通过 scrapyd 让其在服务器运行，并且 scrapyd 的权限是 root 。现认为，攻击者通过此方式下载并执行挖矿病毒。但除此之外的攻击者做没做其他事情，暂且未知。<br>线索：通过 ps aux 查看到病毒进程 kingdevfsi 和 kingsing 通过 systemctl … status 查看到这两个进程关联到scrapyd进程 并且上面图中的 wget 进程也同样关联到 scrapyd 进程，遂认为 scrapyd 有很大嫌疑。<br>方案：关闭scrapyd服务，清除本地病毒。</p>
+]]></content>
+      <categories>
+        <category>服务器运维</category>
+        <category>Cybersecurity</category>
+      </categories>
+      <tags>
+        <tag>Security</tag>
+        <tag>Virus</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2018/08/24/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -145,49 +145,6 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>Microservice Solutions 微服务解决方案</title>
-    <url>/2021/04/22/microservice_solutions/</url>
-    <content><![CDATA[<!-- <img src=2021/04/22/microservice_solutions/CDprocess.png style="width:70%;"/> -->
-
-<span id="more"></span> 
-
-<h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p><img src="CDprocess.png" alt="微服务CD(持续交付/部署)流程"></p>
-<h2 id="Technology-Selection"><a href="#Technology-Selection" class="headerlink" title="Technology Selection"></a>Technology Selection</h2><p>Tech-stack: Kubernetes + Spring Cloud + Docker<br><strong>Spring Cloud</strong>:<br><strong>Docker</strong>:</p>
-<h2 id="Spring-Cloud-Project-Demo"><a href="#Spring-Cloud-Project-Demo" class="headerlink" title="Spring Cloud Project Demo:"></a>Spring Cloud Project Demo:</h2><p>For a better understanding of the Microservice architechture, I build a minimum demo project and for others to refer:</p>
-<blockquote>
-<p><a href="https://github.com/Jerriodaddy/Spring-Cloud-Demo/tree/main">Jerriodaddy / Spring-Cloud-Demo</a></p>
-</blockquote>
-<p>At the same time, I recommend a more compeleted e-mall demo:</p>
-<blockquote>
-<p><a href="https://github.com/macrozheng/mall-swarm">macrozheng / mall-swarm</a></p>
-</blockquote>
-<h2 id="Reference-amp-Relative-Reading"><a href="#Reference-amp-Relative-Reading" class="headerlink" title="Reference &amp; Relative Reading"></a>Reference &amp; Relative Reading</h2><ol>
-<li><p><a href="https://dzone.com/articles/microservice-architecture-with-spring-cloud-and-do">Microservice Architectures With Spring Cloud and Docker</a></p>
-</li>
-<li><p><a href="https://spring.io/cloud">Spring Cloud</a></p>
-</li>
-<li><p><a href="https://spring.io/blog/2019/06/18/getting-started-with-spring-cloud-gateway">Getting Started with Spring Cloud Gateway</a></p>
-</li>
-<li><p><a href="https://spring.io/guides/gs/spring-cloud-loadbalancer/">Client-Side Load-Balancing with Spring Cloud LoadBalancer</a></p>
-</li>
-<li><p><a href="http://www.heartthinkdo.com/?p=1933">Spring Cloud服务注册-Eureka介绍和部署</a></p>
-</li>
-<li><p><a href="https://spring.io/guides/gs/centralized-configuration/">Centralized Configuration</a></p>
-</li>
-<li><p><a href="https://cloud.spring.io/spring-cloud-config/multi/multi__spring_cloud_config_server.html">Spring Cloud Config Server</a></p>
-</li>
-<li><p><a href="https://www.jianshu.com/p/2571f6a4e192">微服务架构下的统一身份认证和授权</a></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>System Architecture</category>
-      </categories>
-      <tags>
-        <tag>微服务</tag>
-      </tags>
   </entry>
   <entry>
     <title>Mysql ERROR When Starting!</title>
@@ -238,6 +195,92 @@
       <tags>
         <tag>Mysql</tag>
         <tag>Error</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Microservice Solutions 微服务解决方案</title>
+    <url>/2021/04/22/microservice_solutions/</url>
+    <content><![CDATA[<!-- <img src=2021/04/22/microservice_solutions/CDprocess.png style="width:70%;"/> -->
+
+<span id="more"></span> 
+
+<h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p><img src="CDprocess.png" alt="微服务CD(持续交付/部署)流程"></p>
+<h2 id="Technology-Selection"><a href="#Technology-Selection" class="headerlink" title="Technology Selection"></a>Technology Selection</h2><p>Tech-stack: Kubernetes + Spring Cloud + Docker<br><strong>Spring Cloud</strong>:<br><strong>Docker</strong>:</p>
+<h2 id="Spring-Cloud-Project-Demo"><a href="#Spring-Cloud-Project-Demo" class="headerlink" title="Spring Cloud Project Demo:"></a>Spring Cloud Project Demo:</h2><p>For a better understanding of the Microservice architechture, I build a minimum demo project and for others to refer:</p>
+<blockquote>
+<p><a href="https://github.com/Jerriodaddy/Spring-Cloud-Demo/tree/main">Jerriodaddy / Spring-Cloud-Demo</a></p>
+</blockquote>
+<p>At the same time, I recommend a more compeleted e-mall demo:</p>
+<blockquote>
+<p><a href="https://github.com/macrozheng/mall-swarm">macrozheng / mall-swarm</a></p>
+</blockquote>
+<h2 id="Reference-amp-Relative-Reading"><a href="#Reference-amp-Relative-Reading" class="headerlink" title="Reference &amp; Relative Reading"></a>Reference &amp; Relative Reading</h2><ol>
+<li><p><a href="https://dzone.com/articles/microservice-architecture-with-spring-cloud-and-do">Microservice Architectures With Spring Cloud and Docker</a></p>
+</li>
+<li><p><a href="https://spring.io/cloud">Spring Cloud</a></p>
+</li>
+<li><p><a href="https://spring.io/blog/2019/06/18/getting-started-with-spring-cloud-gateway">Getting Started with Spring Cloud Gateway</a></p>
+</li>
+<li><p><a href="https://spring.io/guides/gs/spring-cloud-loadbalancer/">Client-Side Load-Balancing with Spring Cloud LoadBalancer</a></p>
+</li>
+<li><p><a href="http://www.heartthinkdo.com/?p=1933">Spring Cloud服务注册-Eureka介绍和部署</a></p>
+</li>
+<li><p><a href="https://spring.io/guides/gs/centralized-configuration/">Centralized Configuration</a></p>
+</li>
+<li><p><a href="https://cloud.spring.io/spring-cloud-config/multi/multi__spring_cloud_config_server.html">Spring Cloud Config Server</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/2571f6a4e192">微服务架构下的统一身份认证和授权</a></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>System Architecture</category>
+      </categories>
+      <tags>
+        <tag>微服务</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot Series - Mybatis Generator (最简配置！)</title>
+    <url>/2021/05/09/springboot-mybatis-generator/</url>
+    <content><![CDATA[<p>Mybatis要写许多xml文件，sql语句，DAO接口，但大部分都是通用的增删改查操作。为了解决这个问题，Mybatis Generator插件应运而生，能够通过数据库表自动生成三个文件：</p>
+<ol>
+<li>DAO接口</li>
+<li>表对应的实体类</li>
+<li>mapper.xml文件<span id="more"></span></li>
+</ol>
+<p>网上有很多类似的文章介绍了如何在Springboot中使用MybatisGenerator，但是大部分教程里有很多冗余的配置，今天给大家来纯净版，只保留所需要的配置使用MybatisGenerator工具。</p>
+<p>Mybatis要写许多xml文件，sql语句，DAO接口，但大部分都是通用的增删改查操作。为了解决这个问题，Mybatis Generator插件应运而生，能够通过数据库表自动生成三个文件：</p>
+<ol>
+<li>DAO接口</li>
+<li>表对应的实体类</li>
+<li>mapper.xml文件</li>
+</ol>
+<p>整体文件结构示例：<br><img src="filestruc.png" alt="filestruc"></p>
+<p>具体步骤如下：</p>
+<h2 id="1-创建数据库表"><a href="#1-创建数据库表" class="headerlink" title="1. 创建数据库表"></a>1. 创建数据库表</h2><p>Demo项目文件里提供了创建数据库的sql脚本，在MySQLWorkbench里运行一下就好了。</p>
+<h2 id="2-在pom-xml里添加依赖"><a href="#2-在pom-xml里添加依赖" class="headerlink" title="2. 在pom.xml里添加依赖"></a>2. 在pom.xml里添加依赖</h2><p>依赖主要有三个，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;project.build.sourceEncoding&gt;UTF-8&lt;&#x2F;project.build.sourceEncoding&gt;</span><br><span class="line">    &lt;java.version&gt;11&lt;&#x2F;java.version&gt;</span><br><span class="line">    &lt;tk-mapper.version&gt;1.2.4&lt;&#x2F;tk-mapper.version&gt;</span><br><span class="line">    &lt;mybatis-generator.version&gt;1.3.7&lt;&#x2F;mybatis-generator.version&gt;</span><br><span class="line">    &lt;mysql-connector.version&gt;8.0.22&lt;&#x2F;mysql-connector.version&gt;</span><br><span class="line">&lt;&#x2F;properties&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependencyManagement&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;tk.mybatis&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;mapper-spring-boot-starter&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;tk-mapper.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;!-- mybatis 逆向生成工具 --&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.mybatis.generator&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;mybatis-generator-core&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;mybatis-generator.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;!-- mysql 连接 --&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;mysql&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;mysql-connector-java&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;mysql-connector.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line">&lt;&#x2F;dependencyManagement&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;!--tk.mapper --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;tk.mybatis&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;mapper-spring-boot-starter&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;!-- mybatis 逆向生成工具 --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.mybatis.generator&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;mybatis-generator-core&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;scope&gt;compile&lt;&#x2F;scope&gt;</span><br><span class="line">        &lt;optional&gt;true&lt;&#x2F;optional&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;mysql&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;mysql-connector-java&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;scope&gt;runtime&lt;&#x2F;scope&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;&#x2F;dependencies&gt;</span><br></pre></td></tr></table></figure>
+<p>其中 <code>tk.mybatis</code> 是用来简化 Mapper 里冗余代码的插件。原生 Mybatis Generator 的 mapper.xml 中增删改查，按条件搜索等冗余sql代码太多了，每个 mapper 大概有几百行，所以我多引了一个这个包，可以大大减少代码量，减小包的体积。</p>
+<p>下图是原生（左）和<code>tk.mybatis</code>（右）生成的 mapper.xml 对比:<br><img src="compare.png" alt="compare"></p>
+<p>使用这个包需要添加一个接口类：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.jerrio.utils;</span><br><span class="line"></span><br><span class="line">import tk.mybatis.mapper.common.Mapper;</span><br><span class="line">import tk.mybatis.mapper.common.MySqlMapper;</span><br><span class="line"></span><br><span class="line">public interface MyMapper&lt;T&gt; extends Mapper&lt;T&gt;, MySqlMapper&lt;T&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;FIXME 特别注意，该接口不能被扫描到，否则会出错</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>并在<code>generator.xml</code>中添加/替换mapper生成插件（完整<code>generator.xml</code>下面会有展示）：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;plugin type&#x3D;&quot;tk.mybatis.mapper.generator.MapperPlugin&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;mappers&quot; value&#x3D;&quot;com.jerrio.utils.MyMapper&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;plugin&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-添加generator-xml"><a href="#3-添加generator-xml" class="headerlink" title="3. 添加generator.xml"></a>3. 添加generator.xml</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD MyBatis Generator Configuration 1.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-generator-config_1_0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">    &lt;properties resource&#x3D;&quot;generator.properties&quot;&#x2F;&gt;</span><br><span class="line">    &lt;context id&#x3D;&quot;MysqlContext&quot; targetRuntime&#x3D;&quot;MyBatis3Simple&quot; defaultModelType&#x3D;&quot;flat&quot;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;beginningDelimiter&quot; value&#x3D;&quot;&#96;&quot;&#x2F;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;endingDelimiter&quot; value&#x3D;&quot;&#96;&quot;&#x2F;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;autoDelimitKeywords&quot; value&#x3D;&quot;true&quot;&#x2F;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;javaFileEncoding&quot; value&#x3D;&quot;UTF-8&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--        &lt;!&amp;ndash; 为模型生成序列化方法&amp;ndash;&gt;--&gt;</span><br><span class="line">&lt;!--        &lt;plugin type&#x3D;&quot;org.mybatis.generator.plugins.SerializablePlugin&quot;&#x2F;&gt;--&gt;</span><br><span class="line">&lt;!--        &lt;!&amp;ndash; 为生成的Java模型创建一个toString方法 &amp;ndash;&gt;--&gt;</span><br><span class="line">&lt;!--        &lt;plugin type&#x3D;&quot;org.mybatis.generator.plugins.ToStringPlugin&quot;&#x2F;&gt;--&gt;</span><br><span class="line">&lt;!--        &lt;!&amp;ndash;生成mapper.xml时覆盖原文件&amp;ndash;&gt;--&gt;</span><br><span class="line">&lt;!--        &lt;plugin type&#x3D;&quot;org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin&quot; &#x2F;&gt;--&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- 简化Mapper插件 --&gt;</span><br><span class="line">        &lt;plugin type&#x3D;&quot;tk.mybatis.mapper.generator.MapperPlugin&quot;&gt;</span><br><span class="line">            &lt;property name&#x3D;&quot;mappers&quot; value&#x3D;&quot;com.jerrio.utils.MyMapper&quot;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;plugin&gt;</span><br><span class="line"></span><br><span class="line">        &lt;jdbcConnection driverClass&#x3D;&quot;$&#123;jdbc.driverClass&#125;&quot;</span><br><span class="line">                        connectionURL&#x3D;&quot;$&#123;jdbc.connectionURL&#125;&quot;</span><br><span class="line">                        userId&#x3D;&quot;$&#123;jdbc.userId&#125;&quot;</span><br><span class="line">                        password&#x3D;&quot;$&#123;jdbc.password&#125;&quot;&gt;</span><br><span class="line">            &lt;!-- 解决mysql驱动升级到8.0后不生成指定数据库代码的问题，防止生成其他库同名表--&gt;</span><br><span class="line">            &lt;property name&#x3D;&quot;nullCatalogMeansCurrent&quot; value&#x3D;&quot;true&quot;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;jdbcConnection&gt;</span><br><span class="line">        &lt;!-- 对应生成的pojo所在包 --&gt;</span><br><span class="line">        &lt;javaModelGenerator targetPackage&#x3D;&quot;com.jerrio.pojo&quot; targetProject&#x3D;&quot;src&#x2F;main&#x2F;java&quot;&#x2F;&gt;</span><br><span class="line">		&lt;!-- 对应生成的mapper所在目录 --&gt;</span><br><span class="line">        &lt;sqlMapGenerator targetPackage&#x3D;&quot;mapper&quot; targetProject&#x3D;&quot;src&#x2F;main&#x2F;resources&quot;&#x2F;&gt;</span><br><span class="line">        &lt;!-- 配置mapper对应的java映射 --&gt;</span><br><span class="line">        &lt;javaClientGenerator targetPackage&#x3D;&quot;com.jerrio.mapper&quot; targetProject&#x3D;&quot;src&#x2F;main&#x2F;java&quot;</span><br><span class="line">                             type&#x3D;&quot;XMLMAPPER&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- 生成全部表tableName设为% --&gt;</span><br><span class="line">        &lt;table tableName&#x3D;&quot;%&quot; delimitIdentifiers&#x3D;&quot;true&quot;&gt;</span><br><span class="line">            &lt;generatedKey column&#x3D;&quot;id&quot; sqlStatement&#x3D;&quot;MySql&quot; identity&#x3D;&quot;true&quot;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;table&gt;</span><br><span class="line">        &lt;!--        &lt;table tableName&#x3D;&quot;order&quot;&gt;--&gt;</span><br><span class="line">        &lt;!--            &lt;generatedKey column&#x3D;&quot;id&quot; sqlStatement&#x3D;&quot;MySql&quot; identity&#x3D;&quot;true&quot;&#x2F;&gt;--&gt;</span><br><span class="line">        &lt;!--        &lt;&#x2F;table&gt;--&gt;</span><br><span class="line">    &lt;&#x2F;context&gt;</span><br><span class="line">&lt;&#x2F;generatorConfiguration&gt;</span><br></pre></td></tr></table></figure>
+<p>jdbcConnection那栏换成自己的配置就可以（我另写了个配置文件作引人），比如</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">jdbc.driverClass&#x3D;com.mysql.cj.jdbc.Driver</span><br><span class="line">jdbc.connectionURL&#x3D;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;test</span><br><span class="line">jdbc.userId&#x3D;root</span><br><span class="line">jdbc.password&#x3D;root</span><br></pre></td></tr></table></figure>
+<h2 id="4-添加-GeneratorDisplay-java"><a href="#4-添加-GeneratorDisplay-java" class="headerlink" title="4.  添加 GeneratorDisplay.java"></a>4.  添加 GeneratorDisplay.java</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.jerrio;</span><br><span class="line"></span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">import org.mybatis.generator.api.MyBatisGenerator;</span><br><span class="line">import org.mybatis.generator.config.Configuration;</span><br><span class="line">import org.mybatis.generator.config.xml.ConfigurationParser;</span><br><span class="line">import org.mybatis.generator.internal.DefaultShellCallback;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class GeneratorDisplay &#123;</span><br><span class="line"></span><br><span class="line">	public void generator() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;MBG 执行过程中的警告信息</span><br><span class="line">		List&lt;String&gt; warnings &#x3D; new ArrayList&lt;String&gt;();</span><br><span class="line">		&#x2F;&#x2F;当生成的代码重复时，覆盖原代码</span><br><span class="line">		boolean overwrite &#x3D; true;</span><br><span class="line">		&#x2F;&#x2F;读取我们的 MBG 配置文件</span><br><span class="line">		InputStream is &#x3D; GeneratorDisplay.class.getResourceAsStream(&quot;&#x2F;generator.xml&quot;);</span><br><span class="line">		ConfigurationParser cp &#x3D; new ConfigurationParser(warnings);</span><br><span class="line">		Configuration config &#x3D; cp.parseConfiguration(is);</span><br><span class="line">		is.close();</span><br><span class="line"></span><br><span class="line">		DefaultShellCallback callback &#x3D; new DefaultShellCallback(overwrite);</span><br><span class="line">		&#x2F;&#x2F;创建 MBG</span><br><span class="line">		MyBatisGenerator myBatisGenerator &#x3D; new MyBatisGenerator(config, callback, warnings);</span><br><span class="line">		&#x2F;&#x2F;执行生成代码</span><br><span class="line">		myBatisGenerator.generate(null);</span><br><span class="line">		&#x2F;&#x2F;输出警告信息</span><br><span class="line">		for (String warning : warnings) &#123;</span><br><span class="line">			System.out.println(warning);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) throws Exception &#123;</span><br><span class="line">		try &#123;</span><br><span class="line">			GeneratorDisplay generatorSqlmap &#x3D; new GeneratorDisplay();</span><br><span class="line">			generatorSqlmap.generator();</span><br><span class="line">			System.out.println(&quot;mapper 生产完毕，注意调整代码&quot;);</span><br><span class="line">		&#125; catch (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-执行编译"><a href="#5-执行编译" class="headerlink" title="5. 执行编译"></a>5. 执行编译</h2><p>按以上配置完成后就可以点GeneratorDisplay运行了，当你在控制台看到类似以下输出时，代表运行成功。</p>
+<p><img src="run.png" alt="run"></p>
+<h3 id="为了大家调用方便，我把代码放到Github了，可以直接下载放到项目目录中作为子模块运行。Jerriodaddy-mybatis-generator"><a href="#为了大家调用方便，我把代码放到Github了，可以直接下载放到项目目录中作为子模块运行。Jerriodaddy-mybatis-generator" class="headerlink" title="为了大家调用方便，我把代码放到Github了，可以直接下载放到项目目录中作为子模块运行。Jerriodaddy/mybatis-generator"></a>为了大家调用方便，我把代码放到Github了，可以直接下载放到项目目录中作为子模块运行。<a href="https://github.com/Jerriodaddy/mybatis-generator">Jerriodaddy/mybatis-generator</a></h3>]]></content>
+      <categories>
+        <category>SpringBoot</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
       </tags>
   </entry>
   <entry>
@@ -330,6 +373,32 @@
       </tags>
   </entry>
   <entry>
+    <title>Timestamp Transformation in Uniapp</title>
+    <url>/2019/08/22/timestamp_transformation_in_uniapp/</url>
+    <content><![CDATA[<p>当前项目聊天业务需要显示聊天消息的创建时间。在网上搜索一番之后，发现很多都是答非所问，所以决定自己探索一番，并记录下这个有趣的过程。</p>
+<p><strong>业务流程</strong>：<br>    1. 客户端发消息时，本地创建聊天对象加到缓存中并渲染给页面<br>    2. 将聊天对象发送给服务器<br>    3. 服务器将聊天对象转发给对方用户…</p>
+<span id="more"></span>
+
+<h2 id="记一次-uniapp-上的时间格式转换"><a href="#记一次-uniapp-上的时间格式转换" class="headerlink" title="记一次 uniapp 上的时间格式转换"></a>记一次 uniapp 上的时间格式转换</h2><p><strong>背景</strong>：当前项目聊天业务需要显示聊天消息的创建时间。在网上搜索一番之后，发现很多都是答非所问，所以决定自己探索一番，并记录下这个有趣的过程。</p>
+<p><strong>业务流程</strong>：<br>    1. 客户端发消息时，本地创建聊天对象加到缓存中并渲染给页面<br>    2. 将聊天对象发送给服务器<br>    3. 服务器将聊天对象转发给对方用户</p>
+<p>为了实现该功能，我先分别打印了来自 java 后端和 uni-app 获取时间方法的结果。发现他们的格式不一样，如图：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190821231519466.png" alt="在这里插入图片描述"></p>
+<p>从后端拿到的是 java.util New Date() 之后的原始长整数（我称之为原始时间），<br>而在 uni-app 里直接 new Date() 后，得到是一个经格式化后的长字符串。</p>
+<p>我想，按理来说，考虑到客户端时区的差异，我们最好在客户端对原始时间进行解析。<br>而两个用户可能处在不同的时区，所以唯一的方法就是传递原始时间。</p>
+<p>所以在uni-app如何获取未经过格式化的原始时间，已经如何解析呢？</p>
+<p><img src="https://img-blog.csdnimg.cn/20190821235003442.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxODM1NDk2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可以看到这边 uni-app 其实给出了很多方法，其中 getTime() 可以获取一个 numeric universal time (我所指的原始时间)。也就是说我们储存和传输这个时间就可以了。<br>那么我们如何解析它呢？<br>经过一段时间的尝试… 我直接提供简单的示范代码吧。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var time &#x3D; new Date().getTime() &#x2F;&#x2F; 获取原始时间</span><br><span class="line">&#x2F;&#x2F; 通过服务器接收后...</span><br><span class="line">var newTime &#x3D; new Date(time) &#x2F;&#x2F; 把接收到的时间转换为 Date 类型</span><br><span class="line">&#x2F;&#x2F; 其实这样就可以了 可以直接通过 Date 类型自带的 get 方法解析，比如：</span><br><span class="line">console.log(newTime.getDate());</span><br><span class="line">console.log(newTime.getDay());</span><br></pre></td></tr></table></figure>
+<p>这是我 getDate() 之后的结果，这样就成功获取并解析到啦。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190822001210866.png" alt="在这里插入图片描述啊"><br><strong>END…</strong></p>
+]]></content>
+      <categories>
+        <category>Debug</category>
+      </categories>
+      <tags>
+        <tag>小程序</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Url Parsing Error: 小程序页面跳转传参解析错误 —— Unexpected end of JSON input</title>
     <url>/2019/11/27/url_parsing_error/</url>
     <content><![CDATA[<p><img src="https://img-blog.csdnimg.cn/20191127172333593.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxODM1NDk2,size_16,color_FFFFFF,t_70" alt="截图1"></p>
@@ -357,75 +426,6 @@
       </categories>
       <tags>
         <tag>Error</tag>
-        <tag>小程序</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot Series - Mybatis Generator (最简配置！)</title>
-    <url>/2021/05/09/springboot-mybatis-generator/</url>
-    <content><![CDATA[<p>Mybatis要写许多xml文件，sql语句，DAO接口，但大部分都是通用的增删改查操作。为了解决这个问题，Mybatis Generator插件应运而生，能够通过数据库表自动生成三个文件：</p>
-<ol>
-<li>DAO接口</li>
-<li>表对应的实体类</li>
-<li>mapper.xml文件<span id="more"></span></li>
-</ol>
-<p>网上有很多类似的文章介绍了如何在Springboot中使用MybatisGenerator，但是大部分教程里有很多冗余的配置，今天给大家来纯净版，只保留所需要的配置使用MybatisGenerator工具。</p>
-<p>Mybatis要写许多xml文件，sql语句，DAO接口，但大部分都是通用的增删改查操作。为了解决这个问题，Mybatis Generator插件应运而生，能够通过数据库表自动生成三个文件：</p>
-<ol>
-<li>DAO接口</li>
-<li>表对应的实体类</li>
-<li>mapper.xml文件</li>
-</ol>
-<p>整体文件结构示例：<br><img src="filestruc.png" alt="filestruc"></p>
-<p>具体步骤如下：</p>
-<h2 id="1-创建数据库表"><a href="#1-创建数据库表" class="headerlink" title="1. 创建数据库表"></a>1. 创建数据库表</h2><p>Demo项目文件里提供了创建数据库的sql脚本，在MySQLWorkbench里运行一下就好了。</p>
-<h2 id="2-在pom-xml里添加依赖"><a href="#2-在pom-xml里添加依赖" class="headerlink" title="2. 在pom.xml里添加依赖"></a>2. 在pom.xml里添加依赖</h2><p>依赖主要有三个，代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;project.build.sourceEncoding&gt;UTF-8&lt;&#x2F;project.build.sourceEncoding&gt;</span><br><span class="line">    &lt;java.version&gt;11&lt;&#x2F;java.version&gt;</span><br><span class="line">    &lt;tk-mapper.version&gt;1.2.4&lt;&#x2F;tk-mapper.version&gt;</span><br><span class="line">    &lt;mybatis-generator.version&gt;1.3.7&lt;&#x2F;mybatis-generator.version&gt;</span><br><span class="line">    &lt;mysql-connector.version&gt;8.0.22&lt;&#x2F;mysql-connector.version&gt;</span><br><span class="line">&lt;&#x2F;properties&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependencyManagement&gt;</span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;tk.mybatis&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;mapper-spring-boot-starter&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;tk-mapper.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;!-- mybatis 逆向生成工具 --&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.mybatis.generator&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;mybatis-generator-core&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;mybatis-generator.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">        &lt;!-- mysql 连接 --&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;mysql&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;mysql-connector-java&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;$&#123;mysql-connector.version&#125;&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line">&lt;&#x2F;dependencyManagement&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;!--tk.mapper --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;tk.mybatis&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;mapper-spring-boot-starter&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;!-- mybatis 逆向生成工具 --&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.mybatis.generator&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;mybatis-generator-core&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;scope&gt;compile&lt;&#x2F;scope&gt;</span><br><span class="line">        &lt;optional&gt;true&lt;&#x2F;optional&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;mysql&lt;&#x2F;groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;mysql-connector-java&lt;&#x2F;artifactId&gt;</span><br><span class="line">        &lt;scope&gt;runtime&lt;&#x2F;scope&gt;</span><br><span class="line">    &lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;&#x2F;dependencies&gt;</span><br></pre></td></tr></table></figure>
-<p>其中 <code>tk.mybatis</code> 是用来简化 Mapper 里冗余代码的插件。原生 Mybatis Generator 的 mapper.xml 中增删改查，按条件搜索等冗余sql代码太多了，每个 mapper 大概有几百行，所以我多引了一个这个包，可以大大减少代码量，减小包的体积。</p>
-<p>下图是原生（左）和<code>tk.mybatis</code>（右）生成的 mapper.xml 对比:<br><img src="compare.png" alt="compare"></p>
-<p>使用这个包需要添加一个接口类：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.jerrio.utils;</span><br><span class="line"></span><br><span class="line">import tk.mybatis.mapper.common.Mapper;</span><br><span class="line">import tk.mybatis.mapper.common.MySqlMapper;</span><br><span class="line"></span><br><span class="line">public interface MyMapper&lt;T&gt; extends Mapper&lt;T&gt;, MySqlMapper&lt;T&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F;FIXME 特别注意，该接口不能被扫描到，否则会出错</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>并在<code>generator.xml</code>中添加/替换mapper生成插件（完整<code>generator.xml</code>下面会有展示）：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;plugin type&#x3D;&quot;tk.mybatis.mapper.generator.MapperPlugin&quot;&gt;</span><br><span class="line">    &lt;property name&#x3D;&quot;mappers&quot; value&#x3D;&quot;com.jerrio.utils.MyMapper&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;plugin&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-添加generator-xml"><a href="#3-添加generator-xml" class="headerlink" title="3. 添加generator.xml"></a>3. 添加generator.xml</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">        PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD MyBatis Generator Configuration 1.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">        &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-generator-config_1_0.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;generatorConfiguration&gt;</span><br><span class="line">    &lt;properties resource&#x3D;&quot;generator.properties&quot;&#x2F;&gt;</span><br><span class="line">    &lt;context id&#x3D;&quot;MysqlContext&quot; targetRuntime&#x3D;&quot;MyBatis3Simple&quot; defaultModelType&#x3D;&quot;flat&quot;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;beginningDelimiter&quot; value&#x3D;&quot;&#96;&quot;&#x2F;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;endingDelimiter&quot; value&#x3D;&quot;&#96;&quot;&#x2F;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;autoDelimitKeywords&quot; value&#x3D;&quot;true&quot;&#x2F;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;javaFileEncoding&quot; value&#x3D;&quot;UTF-8&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--        &lt;!&amp;ndash; 为模型生成序列化方法&amp;ndash;&gt;--&gt;</span><br><span class="line">&lt;!--        &lt;plugin type&#x3D;&quot;org.mybatis.generator.plugins.SerializablePlugin&quot;&#x2F;&gt;--&gt;</span><br><span class="line">&lt;!--        &lt;!&amp;ndash; 为生成的Java模型创建一个toString方法 &amp;ndash;&gt;--&gt;</span><br><span class="line">&lt;!--        &lt;plugin type&#x3D;&quot;org.mybatis.generator.plugins.ToStringPlugin&quot;&#x2F;&gt;--&gt;</span><br><span class="line">&lt;!--        &lt;!&amp;ndash;生成mapper.xml时覆盖原文件&amp;ndash;&gt;--&gt;</span><br><span class="line">&lt;!--        &lt;plugin type&#x3D;&quot;org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin&quot; &#x2F;&gt;--&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- 简化Mapper插件 --&gt;</span><br><span class="line">        &lt;plugin type&#x3D;&quot;tk.mybatis.mapper.generator.MapperPlugin&quot;&gt;</span><br><span class="line">            &lt;property name&#x3D;&quot;mappers&quot; value&#x3D;&quot;com.jerrio.utils.MyMapper&quot;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;plugin&gt;</span><br><span class="line"></span><br><span class="line">        &lt;jdbcConnection driverClass&#x3D;&quot;$&#123;jdbc.driverClass&#125;&quot;</span><br><span class="line">                        connectionURL&#x3D;&quot;$&#123;jdbc.connectionURL&#125;&quot;</span><br><span class="line">                        userId&#x3D;&quot;$&#123;jdbc.userId&#125;&quot;</span><br><span class="line">                        password&#x3D;&quot;$&#123;jdbc.password&#125;&quot;&gt;</span><br><span class="line">            &lt;!-- 解决mysql驱动升级到8.0后不生成指定数据库代码的问题，防止生成其他库同名表--&gt;</span><br><span class="line">            &lt;property name&#x3D;&quot;nullCatalogMeansCurrent&quot; value&#x3D;&quot;true&quot;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;jdbcConnection&gt;</span><br><span class="line">        &lt;!-- 对应生成的pojo所在包 --&gt;</span><br><span class="line">        &lt;javaModelGenerator targetPackage&#x3D;&quot;com.jerrio.pojo&quot; targetProject&#x3D;&quot;src&#x2F;main&#x2F;java&quot;&#x2F;&gt;</span><br><span class="line">		&lt;!-- 对应生成的mapper所在目录 --&gt;</span><br><span class="line">        &lt;sqlMapGenerator targetPackage&#x3D;&quot;mapper&quot; targetProject&#x3D;&quot;src&#x2F;main&#x2F;resources&quot;&#x2F;&gt;</span><br><span class="line">        &lt;!-- 配置mapper对应的java映射 --&gt;</span><br><span class="line">        &lt;javaClientGenerator targetPackage&#x3D;&quot;com.jerrio.mapper&quot; targetProject&#x3D;&quot;src&#x2F;main&#x2F;java&quot;</span><br><span class="line">                             type&#x3D;&quot;XMLMAPPER&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- 生成全部表tableName设为% --&gt;</span><br><span class="line">        &lt;table tableName&#x3D;&quot;%&quot; delimitIdentifiers&#x3D;&quot;true&quot;&gt;</span><br><span class="line">            &lt;generatedKey column&#x3D;&quot;id&quot; sqlStatement&#x3D;&quot;MySql&quot; identity&#x3D;&quot;true&quot;&#x2F;&gt;</span><br><span class="line">        &lt;&#x2F;table&gt;</span><br><span class="line">        &lt;!--        &lt;table tableName&#x3D;&quot;order&quot;&gt;--&gt;</span><br><span class="line">        &lt;!--            &lt;generatedKey column&#x3D;&quot;id&quot; sqlStatement&#x3D;&quot;MySql&quot; identity&#x3D;&quot;true&quot;&#x2F;&gt;--&gt;</span><br><span class="line">        &lt;!--        &lt;&#x2F;table&gt;--&gt;</span><br><span class="line">    &lt;&#x2F;context&gt;</span><br><span class="line">&lt;&#x2F;generatorConfiguration&gt;</span><br></pre></td></tr></table></figure>
-<p>jdbcConnection那栏换成自己的配置就可以（我另写了个配置文件作引人），比如</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">jdbc.driverClass&#x3D;com.mysql.cj.jdbc.Driver</span><br><span class="line">jdbc.connectionURL&#x3D;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;test</span><br><span class="line">jdbc.userId&#x3D;root</span><br><span class="line">jdbc.password&#x3D;root</span><br></pre></td></tr></table></figure>
-<h2 id="4-添加-GeneratorDisplay-java"><a href="#4-添加-GeneratorDisplay-java" class="headerlink" title="4.  添加 GeneratorDisplay.java"></a>4.  添加 GeneratorDisplay.java</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.jerrio;</span><br><span class="line"></span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">import org.mybatis.generator.api.MyBatisGenerator;</span><br><span class="line">import org.mybatis.generator.config.Configuration;</span><br><span class="line">import org.mybatis.generator.config.xml.ConfigurationParser;</span><br><span class="line">import org.mybatis.generator.internal.DefaultShellCallback;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class GeneratorDisplay &#123;</span><br><span class="line"></span><br><span class="line">	public void generator() throws Exception&#123;</span><br><span class="line">		&#x2F;&#x2F;MBG 执行过程中的警告信息</span><br><span class="line">		List&lt;String&gt; warnings &#x3D; new ArrayList&lt;String&gt;();</span><br><span class="line">		&#x2F;&#x2F;当生成的代码重复时，覆盖原代码</span><br><span class="line">		boolean overwrite &#x3D; true;</span><br><span class="line">		&#x2F;&#x2F;读取我们的 MBG 配置文件</span><br><span class="line">		InputStream is &#x3D; GeneratorDisplay.class.getResourceAsStream(&quot;&#x2F;generator.xml&quot;);</span><br><span class="line">		ConfigurationParser cp &#x3D; new ConfigurationParser(warnings);</span><br><span class="line">		Configuration config &#x3D; cp.parseConfiguration(is);</span><br><span class="line">		is.close();</span><br><span class="line"></span><br><span class="line">		DefaultShellCallback callback &#x3D; new DefaultShellCallback(overwrite);</span><br><span class="line">		&#x2F;&#x2F;创建 MBG</span><br><span class="line">		MyBatisGenerator myBatisGenerator &#x3D; new MyBatisGenerator(config, callback, warnings);</span><br><span class="line">		&#x2F;&#x2F;执行生成代码</span><br><span class="line">		myBatisGenerator.generate(null);</span><br><span class="line">		&#x2F;&#x2F;输出警告信息</span><br><span class="line">		for (String warning : warnings) &#123;</span><br><span class="line">			System.out.println(warning);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) throws Exception &#123;</span><br><span class="line">		try &#123;</span><br><span class="line">			GeneratorDisplay generatorSqlmap &#x3D; new GeneratorDisplay();</span><br><span class="line">			generatorSqlmap.generator();</span><br><span class="line">			System.out.println(&quot;mapper 生产完毕，注意调整代码&quot;);</span><br><span class="line">		&#125; catch (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-执行编译"><a href="#5-执行编译" class="headerlink" title="5. 执行编译"></a>5. 执行编译</h2><p>按以上配置完成后就可以点GeneratorDisplay运行了，当你在控制台看到类似以下输出时，代表运行成功。</p>
-<p><img src="run.png" alt="run"></p>
-<h3 id="为了大家调用方便，我把代码放到Github了，可以直接下载放到项目目录中作为子模块运行。Jerriodaddy-mybatis-generator"><a href="#为了大家调用方便，我把代码放到Github了，可以直接下载放到项目目录中作为子模块运行。Jerriodaddy-mybatis-generator" class="headerlink" title="为了大家调用方便，我把代码放到Github了，可以直接下载放到项目目录中作为子模块运行。Jerriodaddy/mybatis-generator"></a>为了大家调用方便，我把代码放到Github了，可以直接下载放到项目目录中作为子模块运行。<a href="https://github.com/Jerriodaddy/mybatis-generator">Jerriodaddy/mybatis-generator</a></h3>]]></content>
-      <categories>
-        <category>SpringBoot</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Timestamp Transformation in Uniapp</title>
-    <url>/2019/08/22/timestamp_transformation_in_uniapp/</url>
-    <content><![CDATA[<p>当前项目聊天业务需要显示聊天消息的创建时间。在网上搜索一番之后，发现很多都是答非所问，所以决定自己探索一番，并记录下这个有趣的过程。</p>
-<p><strong>业务流程</strong>：<br>    1. 客户端发消息时，本地创建聊天对象加到缓存中并渲染给页面<br>    2. 将聊天对象发送给服务器<br>    3. 服务器将聊天对象转发给对方用户…</p>
-<span id="more"></span>
-
-<h2 id="记一次-uniapp-上的时间格式转换"><a href="#记一次-uniapp-上的时间格式转换" class="headerlink" title="记一次 uniapp 上的时间格式转换"></a>记一次 uniapp 上的时间格式转换</h2><p><strong>背景</strong>：当前项目聊天业务需要显示聊天消息的创建时间。在网上搜索一番之后，发现很多都是答非所问，所以决定自己探索一番，并记录下这个有趣的过程。</p>
-<p><strong>业务流程</strong>：<br>    1. 客户端发消息时，本地创建聊天对象加到缓存中并渲染给页面<br>    2. 将聊天对象发送给服务器<br>    3. 服务器将聊天对象转发给对方用户</p>
-<p>为了实现该功能，我先分别打印了来自 java 后端和 uni-app 获取时间方法的结果。发现他们的格式不一样，如图：</p>
-<p><img src="https://img-blog.csdnimg.cn/20190821231519466.png" alt="在这里插入图片描述"></p>
-<p>从后端拿到的是 java.util New Date() 之后的原始长整数（我称之为原始时间），<br>而在 uni-app 里直接 new Date() 后，得到是一个经格式化后的长字符串。</p>
-<p>我想，按理来说，考虑到客户端时区的差异，我们最好在客户端对原始时间进行解析。<br>而两个用户可能处在不同的时区，所以唯一的方法就是传递原始时间。</p>
-<p>所以在uni-app如何获取未经过格式化的原始时间，已经如何解析呢？</p>
-<p><img src="https://img-blog.csdnimg.cn/20190821235003442.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxODM1NDk2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可以看到这边 uni-app 其实给出了很多方法，其中 getTime() 可以获取一个 numeric universal time (我所指的原始时间)。也就是说我们储存和传输这个时间就可以了。<br>那么我们如何解析它呢？<br>经过一段时间的尝试… 我直接提供简单的示范代码吧。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var time &#x3D; new Date().getTime() &#x2F;&#x2F; 获取原始时间</span><br><span class="line">&#x2F;&#x2F; 通过服务器接收后...</span><br><span class="line">var newTime &#x3D; new Date(time) &#x2F;&#x2F; 把接收到的时间转换为 Date 类型</span><br><span class="line">&#x2F;&#x2F; 其实这样就可以了 可以直接通过 Date 类型自带的 get 方法解析，比如：</span><br><span class="line">console.log(newTime.getDate());</span><br><span class="line">console.log(newTime.getDay());</span><br></pre></td></tr></table></figure>
-<p>这是我 getDate() 之后的结果，这样就成功获取并解析到啦。</p>
-<p><img src="https://img-blog.csdnimg.cn/20190822001210866.png" alt="在这里插入图片描述啊"><br><strong>END…</strong></p>
-]]></content>
-      <categories>
-        <category>Debug</category>
-      </categories>
-      <tags>
         <tag>小程序</tag>
       </tags>
   </entry>
