@@ -689,11 +689,11 @@ leancloud_visitors:
   app_id: W0Y9YCi6j30MgJlvg32vrRv1-gzGzoHsz
   app_key: Cm6n1aD1AJ4vD2tO8zgcQJRC
   # Required for apps from CN region
-  server_url: https://jerriodaddy.github.io/
+  server_url: # <your server url>
   # Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security
   # If you don't care about security in leancloud counter and just want to use it directly
   # (without hexo-leancloud-counter-security plugin), set `security` to `false`.
-  security: true
+  security: false 
 
 # Another tool to show number of visitors to each article.
 # Visit https://console.firebase.google.com/u/0/ to get apiKey and projectId.
