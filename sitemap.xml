@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/404/index.html</loc>
+    <loc>https://jerriodaddy.github.io/404/index.html</loc>
     
     <lastmod>2022-01-09</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/index.html</loc>
+    <loc>https://jerriodaddy.github.io/categories/index.html</loc>
     
     <lastmod>2022-01-09</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/index.html</loc>
+    <loc>https://jerriodaddy.github.io/tags/index.html</loc>
     
     <lastmod>2022-01-09</lastmod>
     
@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2021/06/23/shrio-spring-security/</loc>
+    <loc>https://jerriodaddy.github.io/2021/06/23/shrio-spring-security/</loc>
     
     <lastmod>2021-06-23</lastmod>
     
@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2021/05/09/springboot-mybatis-generator/</loc>
+    <loc>https://jerriodaddy.github.io/2021/05/09/springboot-mybatis-generator/</loc>
     
     <lastmod>2021-05-19</lastmod>
     
@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2021/05/17/capture-packages-with-mac/</loc>
+    <loc>https://jerriodaddy.github.io/2021/05/17/capture-packages-with-mac/</loc>
     
     <lastmod>2021-05-19</lastmod>
     
@@ -56,7 +56,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2021/04/22/microservice_solutions/</loc>
+    <loc>https://jerriodaddy.github.io/2021/04/22/microservice_solutions/</loc>
     
     <lastmod>2021-05-09</lastmod>
     
@@ -65,7 +65,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2020/09/10/fight-with-kdevtmpfs-virus/</loc>
+    <loc>https://jerriodaddy.github.io/2020/09/10/fight-with-kdevtmpfs-virus/</loc>
     
     <lastmod>2021-04-30</lastmod>
     
@@ -74,7 +74,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2021/04/27/authentication-and-authorization/</loc>
+    <loc>https://jerriodaddy.github.io/2021/04/27/authentication-and-authorization/</loc>
     
     <lastmod>2021-04-30</lastmod>
     
@@ -83,7 +83,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2019/11/27/url_parsing_error/</loc>
+    <loc>https://jerriodaddy.github.io/2019/11/27/url_parsing_error/</loc>
     
     <lastmod>2021-04-23</lastmod>
     
@@ -92,7 +92,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2019/08/22/timestamp_transformation_in_uniapp/</loc>
+    <loc>https://jerriodaddy.github.io/2019/08/22/timestamp_transformation_in_uniapp/</loc>
     
     <lastmod>2021-04-23</lastmod>
     
@@ -101,7 +101,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2020/03/11/mysql_start_error/</loc>
+    <loc>https://jerriodaddy.github.io/2020/03/11/mysql_start_error/</loc>
     
     <lastmod>2021-04-23</lastmod>
     
@@ -110,7 +110,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/about/index.html</loc>
+    <loc>https://jerriodaddy.github.io/about/index.html</loc>
     
     <lastmod>2021-04-23</lastmod>
     
@@ -119,7 +119,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2018/08/24/hello-world/</loc>
+    <loc>https://jerriodaddy.github.io/2018/08/24/hello-world/</loc>
     
     <lastmod>2021-04-23</lastmod>
     
@@ -128,7 +128,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/monitor/index.html</loc>
+    <loc>https://jerriodaddy.github.io/monitor/index.html</loc>
     
     <lastmod>2021-04-23</lastmod>
     
@@ -138,7 +138,7 @@
   
 
   <url>
-    <loc>http://example.com/</loc>
+    <loc>https://jerriodaddy.github.io/</loc>
     <lastmod>2022-01-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -146,49 +146,49 @@
 
   
   <url>
-    <loc>http://example.com/tags/Security/</loc>
+    <loc>https://jerriodaddy.github.io/tags/Security/</loc>
     <lastmod>2022-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/Virus/</loc>
+    <loc>https://jerriodaddy.github.io/tags/Virus/</loc>
     <lastmod>2022-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</loc>
+    <loc>https://jerriodaddy.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</loc>
     <lastmod>2022-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/Mysql/</loc>
+    <loc>https://jerriodaddy.github.io/tags/Mysql/</loc>
     <lastmod>2022-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/Error/</loc>
+    <loc>https://jerriodaddy.github.io/tags/Error/</loc>
     <lastmod>2022-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/SpringBoot/</loc>
+    <loc>https://jerriodaddy.github.io/tags/SpringBoot/</loc>
     <lastmod>2022-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
+    <loc>https://jerriodaddy.github.io/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
     <lastmod>2022-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -197,42 +197,42 @@
 
   
   <url>
-    <loc>http://example.com/categories/System-Architecture/</loc>
+    <loc>https://jerriodaddy.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/</loc>
     <lastmod>2022-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/categories/Network/</loc>
+    <loc>https://jerriodaddy.github.io/categories/System-Architecture/</loc>
     <lastmod>2022-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/</loc>
+    <loc>https://jerriodaddy.github.io/categories/Network/</loc>
     <lastmod>2022-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/categories/Debug/</loc>
+    <loc>https://jerriodaddy.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/Cybersecurity/</loc>
     <lastmod>2022-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/categories/SpringBoot/</loc>
+    <loc>https://jerriodaddy.github.io/categories/Debug/</loc>
     <lastmod>2022-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/Cybersecurity/</loc>
+    <loc>https://jerriodaddy.github.io/categories/SpringBoot/</loc>
     <lastmod>2022-01-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
