@@ -6,7 +6,7 @@
   <link href="https://jerriodaddy.github.io/atom.xml" rel="self"/>
   
   <link href="https://jerriodaddy.github.io/"/>
-  <updated>2021-06-23T10:13:31.602Z</updated>
+  <updated>2022-01-10T10:46:46.244Z</updated>
   <id>https://jerriodaddy.github.io/</id>
   
   <author>
@@ -17,15 +17,41 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>[Algorithms] DP1: FIB-LIS-LCS</title>
+    <link href="https://jerriodaddy.github.io/2022/01/09/Algorithms-DP1-FIB-LIS-LCS/"/>
+    <id>https://jerriodaddy.github.io/2022/01/09/Algorithms-DP1-FIB-LIS-LCS/</id>
+    <published>2022-01-09T15:22:57.000Z</published>
+    <updated>2022-01-10T10:46:46.244Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Dynamic Programming 是一个很重要的算法思想。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;No recursion in algorithm&lt;/li&gt;
+&lt;li&gt;Memorization</summary>
+    
+    
+    
+    <category term="Algorithms" scheme="https://jerriodaddy.github.io/categories/Algorithms/"/>
+    
+    <category term="Dynamic Programming" scheme="https://jerriodaddy.github.io/categories/Algorithms/Dynamic-Programming/"/>
+    
+    
+    <category term="Algorithms" scheme="https://jerriodaddy.github.io/tags/Algorithms/"/>
+    
+    <category term="DP" scheme="https://jerriodaddy.github.io/tags/DP/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Shrio VS Spring Security [转]</title>
     <link href="https://jerriodaddy.github.io/2021/06/23/shrio-spring-security/"/>
     <id>https://jerriodaddy.github.io/2021/06/23/shrio-spring-security/</id>
     <published>2021-06-23T09:20:57.000Z</published>
-    <updated>2021-06-23T10:13:31.602Z</updated>
+    <updated>2022-01-09T15:38:49.584Z</updated>
     
     
     <summary type="html">&lt;p&gt;Security is a primary concern in the world of application development, especially in the area of enterprise web and mobile applications.&lt;/p&gt;
-&lt;p&gt;In this quick tutorial, &lt;strong&gt;we’ll compare two popular Java Security frameworks – &lt;a href=&quot;https://shiro.apache.org/&quot;&gt;Apache Shiro&lt;/a&gt; and &lt;a href=&quot;https://spring.io/projects/spring-security&quot;&gt;Spring Security&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;</summary>
+&lt;p&gt;In this quick tutorial, &lt;strong&gt;we&#39;ll compare two popular Java Security frameworks – &lt;a href=&quot;https://shiro.apache.org/&quot;&gt;Apache Shiro&lt;/a&gt; and &lt;a href=&quot;https://spring.io/projects/spring-security&quot;&gt;Spring Security&lt;/a&gt;.&lt;/strong&gt;</summary>
     
     
     
@@ -46,7 +72,7 @@
     <updated>2021-05-19T03:25:33.354Z</updated>
     
     
-    <summary type="html">&lt;p&gt;许多Mac OS X用户对Mac缺乏复杂的网络分析工具感到遗憾，这些工具在Linux系统上普遍存在。许多人不知道的是Mac OS X附带了一个内置的命令行工具，可以对Wi-Fi网络进行各种的操作，从数据包捕获（流量监听）到扫描附近网络的信噪比。Airport是Apple &lt;code&gt;IEEE 802.11&lt;/code&gt;专用框架的一部分，该框架用于为Mac的Airport菜单栏图标提供动力。&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;许多Mac OS X用户对Mac缺乏复杂的网络分析工具感到遗憾，这些工具在Linux系统上普遍存在。许多人不知道的是Mac OS X附带了一个内置的命令行工具，可以对Wi-Fi网络进行各种的操作，从数据包捕获（流量监听）到扫描附近网络的信噪比。Airport是Apple &lt;code&gt;IEEE 802.11&lt;/code&gt;专用框架的一部分，该框架用于为Mac的Airport菜单栏图标提供动力。</summary>
     
     
     
@@ -65,11 +91,7 @@
     <updated>2021-05-19T14:49:11.060Z</updated>
     
     
-    <summary type="html">&lt;p&gt;Mybatis要写许多xml文件，sql语句，DAO接口，但大部分都是通用的增删改查操作。为了解决这个问题，Mybatis Generator插件应运而生，能够通过数据库表自动生成三个文件：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;DAO接口&lt;/li&gt;
-&lt;li&gt;表对应的实体类&lt;/li&gt;
-&lt;li&gt;mapper.xml文件</summary>
+    <summary type="html">&lt;p&gt;Mybatis要写许多xml文件，sql语句，DAO接口，但大部分都是通用的增删改查操作。为了解决这个问题，Mybatis Generator插件应运而生，能够通过数据库表自动生成三个文件： 1. DAO接口 2. 表对应的实体类 3. mapper.xml文件</summary>
     
     
     
@@ -85,10 +107,12 @@
     <link href="https://jerriodaddy.github.io/2021/04/27/authentication-and-authorization/"/>
     <id>https://jerriodaddy.github.io/2021/04/27/authentication-and-authorization/</id>
     <published>2021-04-27T12:11:00.000Z</published>
-    <updated>2021-04-30T08:39:31.542Z</updated>
+    <updated>2022-01-09T16:03:38.615Z</updated>
     
     
-    <summary type="html">&lt;p&gt;Generally speaking, application access security is developed around the two core concepts of &lt;strong&gt;Authentication&lt;/strong&gt; and &lt;strong&gt;Authorization&lt;/strong&gt;. You first need to determine the identity of the user, and determine whether the user has the authority to access the specified resource…&lt;/p&gt;</summary>
+    <summary type="html">&lt;!-- Generally speaking, application access security is developed around the two core concepts of **Authentication** and **Authorization**. You first need to determine the identity of the user, and determine whether the user has the authority to access the specified resource...
+more --&gt;
+&lt;p&gt;Generally speaking, application access security is developed around the two core concepts of &lt;strong&gt;Authentication&lt;/strong&gt; and &lt;strong&gt;Authorization&lt;/strong&gt;. You first need to determine the identity of the user, and determine whether the user has the authority to access the specified resource. There are many solutions for authentication, the mainstream ones are &lt;code&gt;CAS&lt;/code&gt;, &lt;code&gt;SAML2&lt;/code&gt;, &lt;code&gt;OAUTH2&lt;/code&gt;, etc. The single sign-on (SSO) solution we often talk about refer to this. The mainstream authorization architectures are Spring Security and Shiro.</summary>
     
     
     
@@ -126,11 +150,9 @@
     <updated>2021-04-30T08:41:21.951Z</updated>
     
     
-    <summary type="html">&lt;img src=2020/09/10/fight-with-kdevtmpfs-virus/virus.jpeg style=&quot;width:85%;&quot;/&gt;
-
+    <summary type="html">&lt;p&gt;&lt;img src=2020/09/10/fight-with-kdevtmpfs-virus/virus.jpeg style=&quot;width:85%;&quot;/&gt;&lt;/p&gt;
 &lt;!-- ![virus](2020/09/10/fight-with-kdevtmpfs-virus/virus.jpeg) --&gt;
-
-&lt;p&gt;Kdevtmpfs 是一个偷偷运行在服务器上，占用服务器资源进行挖矿的病毒。我有幸遭中了一次，本篇记录了我与它斗智斗勇的过程…&lt;/p&gt;</summary>
+&lt;p&gt;Kdevtmpfs 是一个偷偷运行在服务器上，占用服务器资源进行挖矿的病毒。我有幸遭中了一次，本篇记录了我与它斗智斗勇的过程...&lt;/p&gt;</summary>
     
     
     
@@ -153,13 +175,8 @@
     <updated>2021-04-23T10:24:30.878Z</updated>
     
     
-    <summary type="html">&lt;p&gt;&lt;strong&gt;错误关键句&lt;/strong&gt;：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;.dyld: Library not loaded: /usr/local/opt/openssl/lib/libssl.1.0.0.dylib&lt;/li&gt;
-&lt;li&gt;ERROR! The server quit without updating PID file&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;strong&gt;解决办法简述&lt;/strong&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ brew upgrade &lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    <summary type="html">&lt;p&gt;&lt;strong&gt;错误关键句&lt;/strong&gt;： 1. .dyld: Library not loaded: /usr/local/opt/openssl/lib/libssl.1.0.0.dylib 2. ERROR! The server quit without updating PID file&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决办法简述&lt;/strong&gt; &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ brew upgrade &lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
     
     
     
@@ -180,8 +197,10 @@
     <updated>2021-04-23T10:29:22.770Z</updated>
     
     
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20191127172333593.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxODM1NDk2,size_16,color_FFFFFF,t_70&quot; alt=&quot;截图1&quot;&gt;&lt;/p&gt;
-&lt;p&gt;在小程序 A-&amp;gt;B 页面跳转时，B页面对A界面传入参数解析失败, 打印传参结果发现…&lt;/p&gt;</summary>
+    <summary type="html">&lt;figure&gt;
+&lt;img src=&quot;https://img-blog.csdnimg.cn/20191127172333593.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxODM1NDk2,size_16,color_FFFFFF,t_70&quot; alt=&quot;截图1&quot; /&gt;&lt;figcaption aria-hidden=&quot;true&quot;&gt;截图1&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;在小程序 A-&amp;gt;B 页面跳转时，B页面对A界面传入参数解析失败, 打印传参结果发现...</summary>
     
     
     
@@ -203,7 +222,7 @@
     
     
     <summary type="html">&lt;p&gt;当前项目聊天业务需要显示聊天消息的创建时间。在网上搜索一番之后，发现很多都是答非所问，所以决定自己探索一番，并记录下这个有趣的过程。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;业务流程&lt;/strong&gt;：&lt;br&gt;    1. 客户端发消息时，本地创建聊天对象加到缓存中并渲染给页面&lt;br&gt;    2. 将聊天对象发送给服务器&lt;br&gt;    3. 服务器将聊天对象转发给对方用户…&lt;/p&gt;</summary>
+&lt;p&gt;&lt;strong&gt;业务流程&lt;/strong&gt;： 1. 客户端发消息时，本地创建聊天对象加到缓存中并渲染给页面 2. 将聊天对象发送给服务器 3. 服务器将聊天对象转发给对方用户...&lt;/p&gt;</summary>
     
     
     

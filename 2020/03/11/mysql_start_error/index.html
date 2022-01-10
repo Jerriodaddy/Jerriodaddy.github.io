@@ -21,12 +21,12 @@
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"jerriodaddy.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
-<meta name="description" content="错误关键句：  .dyld: Library not loaded: &#x2F;usr&#x2F;local&#x2F;opt&#x2F;openssl&#x2F;lib&#x2F;libssl.1.0.0.dylib ERROR! The server quit without updating PID file  解决办法简述 1$ brew upgrade">
+<meta name="description" content="错误关键句： 1. .dyld: Library not loaded: &#x2F;usr&#x2F;local&#x2F;opt&#x2F;openssl&#x2F;lib&#x2F;libssl.1.0.0.dylib 2. ERROR! The server quit without updating PID file 解决办法简述 1$ brew upgrade">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mysql ERROR When Starting!">
 <meta property="og:url" content="https://jerriodaddy.github.io/2020/03/11/mysql_start_error/index.html">
 <meta property="og:site_name" content="Jerrio&#39;s Blog">
-<meta property="og:description" content="错误关键句：  .dyld: Library not loaded: &#x2F;usr&#x2F;local&#x2F;opt&#x2F;openssl&#x2F;lib&#x2F;libssl.1.0.0.dylib ERROR! The server quit without updating PID file  解决办法简述 1$ brew upgrade">
+<meta property="og:description" content="错误关键句： 1. .dyld: Library not loaded: &#x2F;usr&#x2F;local&#x2F;opt&#x2F;openssl&#x2F;lib&#x2F;libssl.1.0.0.dylib 2. ERROR! The server quit without updating PID file 解决办法简述 1$ brew upgrade">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200310170004396.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxODM1NDk2,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2020-03-10T17:55:05.000Z">
@@ -97,9 +97,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">7</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">6</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">10</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">8</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">11</span></a></li>
         <li class="menu-item menu-item-rss"><a href="/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>RSS</a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a></li>
       <li class="menu-item menu-item-search">
@@ -145,7 +145,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -158,7 +158,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">过程:</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -173,18 +172,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -294,7 +293,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>3.4k</span>
+      <span>3.5k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -312,45 +311,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><strong>错误关键句</strong>：</p>
-<ol>
-<li>.dyld: Library not loaded: /usr/local/opt/openssl/lib/libssl.1.0.0.dylib</li>
-<li>ERROR! The server quit without updating PID file</li>
-</ol>
-<p><strong>解决办法简述</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew upgrade </span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-
-<p><strong>错误关键句</strong>：</p>
-<ol>
-<li>.dyld: Library not loaded: /usr/local/opt/openssl/lib/libssl.1.0.0.dylib</li>
-<li>ERROR! The server quit without updating PID file</li>
-</ol>
-<p><strong>解决办法简述</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew upgrade </span><br></pre></td></tr></table></figure>
-
-<p><strong>详细错误提示</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">dyld: Library not loaded: &#x2F;usr&#x2F;local&#x2F;opt&#x2F;openssl&#x2F;lib&#x2F;libssl.1.0.0.dylib</span><br><span class="line">  Referenced from: &#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql@5.7&#x2F;5.7.24&#x2F;bin&#x2F;my_print_defaults</span><br><span class="line">  Reason: image not found</span><br><span class="line">Starting MySQL</span><br><span class="line">.dyld: Library not loaded: &#x2F;usr&#x2F;local&#x2F;opt&#x2F;openssl&#x2F;lib&#x2F;libssl.1.0.0.dylib</span><br><span class="line">  Referenced from: &#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql@5.7&#x2F;5.7.24&#x2F;bin&#x2F;my_print_defaults</span><br><span class="line">  Reason: image not found</span><br><span class="line">dyld: Library not loaded: &#x2F;usr&#x2F;local&#x2F;opt&#x2F;openssl&#x2F;lib&#x2F;libssl.1.0.0.dylib</span><br><span class="line">  Referenced from: &#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql@5.7&#x2F;5.7.24&#x2F;bin&#x2F;my_print_defaults</span><br><span class="line">  Reason: image not found</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql@5.7&#x2F;5.7.24&#x2F;bin&#x2F;mysqld_safe: line 198:  2483 Abort trap: 6           nohup &#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql\@5.7&#x2F;5.7.24&#x2F;bin&#x2F;mysqld --basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql\@5.7&#x2F;5.7.24 --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;var&#x2F;mysql --plugin-dir&#x3D;&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql\@5.7&#x2F;5.7.24&#x2F;lib&#x2F;plugin --user&#x3D;mysql --log-error&#x3D;zhiruis-MacBook-Pro.local.err --pid-file&#x3D;&#x2F;usr&#x2F;local&#x2F;var&#x2F;mysql&#x2F;zhiruis-MacBook-Pro.local.pid &lt; &#x2F;dev&#x2F;null &gt; &#x2F;dev&#x2F;null 2&gt;&amp;1</span><br><span class="line"> ERROR! The server quit without updating PID file (&#x2F;usr&#x2F;local&#x2F;var&#x2F;mysql&#x2F;zhiruis-MacBook-Pro.local.pid).</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="过程"><a href="#过程" class="headerlink" title="过程:"></a>过程:</h2><p> <strong>背景介绍</strong>（一些废话）<br> 今天想 dump 数据库的时候突然报了无法找到 mysql 的对应版本号的错误，我非常的奇怪，因为之前用的都好好的。本着重启解决一切的原则，我重启了 mysql 服务和电脑，结果报了如上的错误。重启无果，我决定面对现实来解决这个突如其来的问题。</p>
-<p> <strong>排查逻辑</strong></p>
-<ol>
-<li>先重启再说。（上文）</li>
-<li>科学上网 + CSND。参考了几篇前辈的文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/super_man_ww/article/details/51460572">https://blog.csdn.net/super_man_ww/article/details/51460572</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/abs1004/article/details/84839894">https://blog.csdn.net/abs1004/article/details/84839894</a><br> 虽然说报错很像，但其根本原因与我相差甚远，但他们为我提供了很棒的解决思路（就是别想着靠别人，仔细研究报错提示来解决问题。）</li>
-<li>可能性思考。结合报错信息（”ssl library not found”）我回顾了近期操作是否影响了 mysql 和 ssl 的相关配置。最后定位到我昨天因为 python package 的依赖需要，升级了 openssl 版本。根据这一信息，我开始尝试解决。↓</li>
-</ol>
-<p><strong>具体步骤</strong></p>
-<ol>
-<li>我根据路径 /usr/local/opt/openssl/lib/ 查看引起报错的源文件。果不其然，其同名文件版本为1.1，而不是1.0。不同的文件名导致 mysql 无法找到该文件。<img src="https://img-blog.csdnimg.cn/20200310170004396.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxODM1NDk2,size_16,color_FFFFFF,t_70" alt="图片1"></li>
-<li>参考 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/59006602/dyld-library-not-loaded-usr-local-opt-openssl-lib-libssl-1-0-0-dylib">https://stackoverflow.com/questions/59006602/dyld-library-not-loaded-usr-local-opt-openssl-lib-libssl-1-0-0-dylib</a> 后，我发现是 mac 系统动态库的问题。通过输出 mysql 5.7.24 所依赖的动态链接库，显示 mysql 5.7.24 与 libssl.1.0.0 版本兼容（而我昨天升到了 1.1）。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ otool -L &#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql@5.7&#x2F;5.7.24&#x2F;lib&#x2F;libmysqlclient.dylib</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql@5.7&#x2F;5.7.24&#x2F;lib&#x2F;libmysqlclient.dylib:</span><br><span class="line">	&#x2F;usr&#x2F;local&#x2F;opt&#x2F;mysql@5.7&#x2F;lib&#x2F;libmysqlclient.20.dylib (compatibility version 20.0.0, current version 20.0.0)</span><br><span class="line">	&#x2F;usr&#x2F;local&#x2F;opt&#x2F;openssl&#x2F;lib&#x2F;libssl.1.0.0.dylib (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">	&#x2F;usr&#x2F;local&#x2F;opt&#x2F;openssl&#x2F;lib&#x2F;libcrypto.1.0.0.dylib (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">	&#x2F;usr&#x2F;lib&#x2F;libc++.1.dylib (compatibility version 1.0.0, current version 400.9.4)</span><br><span class="line">	&#x2F;usr&#x2F;lib&#x2F;libSystem.B.dylib (compatibility version 1.0.0, current version 1252.200.5)</span><br></pre></td></tr></table></figure></li>
-<li>所以假设的解决方法有两种：<ol>
-<li>回退 libssl 版本到 1.0.0 。</li>
-<li>升级 mysql 到更新的版本看是否兼容 libssl 1.1</li>
-</ol>
-</li>
-<li>我更倾向于后者，于是…  “brew upgrade” 开始进入漫长的更新过程。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew upgrade </span><br></pre></td></tr></table></figure></li>
-<li>N 小时过后，我成功的再次登陆 mysql。感动！<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> $ mysql.server start</span><br><span class="line">Starting MySQL</span><br><span class="line">.. SUCCESS!</span><br></pre></td></tr></table></figure></li>
-</ol>
+        <p><strong>错误关键句</strong>： 1. .dyld: Library not loaded: /usr/local/opt/openssl/lib/libssl.1.0.0.dylib 2. ERROR! The server quit without updating PID file</p>
+<p><strong>解决办法简述</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew upgrade </span><br></pre></td></tr></table></figure> <span id="more"></span></p>
+<p><strong>错误关键句</strong>： 1. .dyld: Library not loaded: /usr/local/opt/openssl/lib/libssl.1.0.0.dylib 2. ERROR! The server quit without updating PID file</p>
+<p><strong>解决办法简述</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew upgrade </span><br></pre></td></tr></table></figure></p>
+<p><strong>详细错误提示</strong> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">dyld: Library not loaded: &#x2F;usr&#x2F;local&#x2F;opt&#x2F;openssl&#x2F;lib&#x2F;libssl.1.0.0.dylib</span><br><span class="line">  Referenced from: &#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql@5.7&#x2F;5.7.24&#x2F;bin&#x2F;my_print_defaults</span><br><span class="line">  Reason: image not found</span><br><span class="line">Starting MySQL</span><br><span class="line">.dyld: Library not loaded: &#x2F;usr&#x2F;local&#x2F;opt&#x2F;openssl&#x2F;lib&#x2F;libssl.1.0.0.dylib</span><br><span class="line">  Referenced from: &#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql@5.7&#x2F;5.7.24&#x2F;bin&#x2F;my_print_defaults</span><br><span class="line">  Reason: image not found</span><br><span class="line">dyld: Library not loaded: &#x2F;usr&#x2F;local&#x2F;opt&#x2F;openssl&#x2F;lib&#x2F;libssl.1.0.0.dylib</span><br><span class="line">  Referenced from: &#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql@5.7&#x2F;5.7.24&#x2F;bin&#x2F;my_print_defaults</span><br><span class="line">  Reason: image not found</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql@5.7&#x2F;5.7.24&#x2F;bin&#x2F;mysqld_safe: line 198:  2483 Abort trap: 6           nohup &#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql\@5.7&#x2F;5.7.24&#x2F;bin&#x2F;mysqld --basedir&#x3D;&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql\@5.7&#x2F;5.7.24 --datadir&#x3D;&#x2F;usr&#x2F;local&#x2F;var&#x2F;mysql --plugin-dir&#x3D;&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql\@5.7&#x2F;5.7.24&#x2F;lib&#x2F;plugin --user&#x3D;mysql --log-error&#x3D;zhiruis-MacBook-Pro.local.err --pid-file&#x3D;&#x2F;usr&#x2F;local&#x2F;var&#x2F;mysql&#x2F;zhiruis-MacBook-Pro.local.pid &lt; &#x2F;dev&#x2F;null &gt; &#x2F;dev&#x2F;null 2&gt;&amp;1</span><br><span class="line"> ERROR! The server quit without updating PID file (&#x2F;usr&#x2F;local&#x2F;var&#x2F;mysql&#x2F;zhiruis-MacBook-Pro.local.pid).</span><br></pre></td></tr></table></figure> ------- ## 过程:</p>
+<p><strong>背景介绍</strong>（一些废话） 今天想 dump 数据库的时候突然报了无法找到 mysql 的对应版本号的错误，我非常的奇怪，因为之前用的都好好的。本着重启解决一切的原则，我重启了 mysql 服务和电脑，结果报了如上的错误。重启无果，我决定面对现实来解决这个突如其来的问题。</p>
+<p><strong>排查逻辑</strong> 1. 先重启再说。（上文） 2. 科学上网 + CSND。参考了几篇前辈的文章：https://blog.csdn.net/super_man_ww/article/details/51460572<br />
+https://blog.csdn.net/abs1004/article/details/84839894 虽然说报错很像，但其根本原因与我相差甚远，但他们为我提供了很棒的解决思路（就是别想着靠别人，仔细研究报错提示来解决问题。） 3. 可能性思考。结合报错信息（"ssl library not found"）我回顾了近期操作是否影响了 mysql 和 ssl 的相关配置。最后定位到我昨天因为 python package 的依赖需要，升级了 openssl 版本。根据这一信息，我开始尝试解决。↓</p>
+<p><strong>具体步骤</strong> 1. 我根据路径 /usr/local/opt/openssl/lib/ 查看引起报错的源文件。果不其然，其同名文件版本为1.1，而不是1.0。不同的文件名导致 mysql 无法找到该文件。<img src="https://img-blog.csdnimg.cn/20200310170004396.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxODM1NDk2,size_16,color_FFFFFF,t_70" alt="图片1" /> 2. 参考 https://stackoverflow.com/questions/59006602/dyld-library-not-loaded-usr-local-opt-openssl-lib-libssl-1-0-0-dylib 后，我发现是 mac 系统动态库的问题。通过输出 mysql 5.7.24 所依赖的动态链接库，显示 mysql 5.7.24 与 libssl.1.0.0 版本兼容（而我昨天升到了 1.1）。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ otool -L &#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql@5.7&#x2F;5.7.24&#x2F;lib&#x2F;libmysqlclient.dylib</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;mysql@5.7&#x2F;5.7.24&#x2F;lib&#x2F;libmysqlclient.dylib:</span><br><span class="line">	&#x2F;usr&#x2F;local&#x2F;opt&#x2F;mysql@5.7&#x2F;lib&#x2F;libmysqlclient.20.dylib (compatibility version 20.0.0, current version 20.0.0)</span><br><span class="line">	&#x2F;usr&#x2F;local&#x2F;opt&#x2F;openssl&#x2F;lib&#x2F;libssl.1.0.0.dylib (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">	&#x2F;usr&#x2F;local&#x2F;opt&#x2F;openssl&#x2F;lib&#x2F;libcrypto.1.0.0.dylib (compatibility version 1.0.0, current version 1.0.0)</span><br><span class="line">	&#x2F;usr&#x2F;lib&#x2F;libc++.1.dylib (compatibility version 1.0.0, current version 400.9.4)</span><br><span class="line">	&#x2F;usr&#x2F;lib&#x2F;libSystem.B.dylib (compatibility version 1.0.0, current version 1252.200.5)</span><br></pre></td></tr></table></figure> 3. 所以假设的解决方法有两种： 1. 回退 libssl 版本到 1.0.0 。 2. 升级 mysql 到更新的版本看是否兼容 libssl 1.1 4. 我更倾向于后者，于是... "brew upgrade" 开始进入漫长的更新过程。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew upgrade </span><br></pre></td></tr></table></figure> 5. N 小时过后，我成功的再次登陆 mysql。感动！ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> $ mysql.server start</span><br><span class="line">Starting MySQL</span><br><span class="line">.. SUCCESS!</span><br></pre></td></tr></table></figure></p>
 
     </div>
 
@@ -425,14 +394,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Symbols count total: </span>
-    <span title="Symbols count total">33k</span>
+    <span title="Symbols count total">34k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Reading time total &asymp;</span>
-    <span title="Reading time total">30 mins.</span>
+    <span title="Reading time total">31 mins.</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -468,6 +437,8 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.8/dist/mermaid.min.js","integrity":"sha256-QmSAc2kIaUjleIJ46X7qPW2zrpCbXlMz3YIGgWpQ1Jo="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
 
 
   <script src="/js/third-party/pace.js"></script>
@@ -476,6 +447,12 @@
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 

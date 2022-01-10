@@ -21,12 +21,12 @@
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"jerriodaddy.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Kdevtmpfs 是一个偷偷运行在服务器上，占用服务器资源进行挖矿的病毒。我有幸遭中了一次，本篇记录了我与它斗智斗勇的过程…">
+<meta name="description" content="Kdevtmpfs 是一个偷偷运行在服务器上，占用服务器资源进行挖矿的病毒。我有幸遭中了一次，本篇记录了我与它斗智斗勇的过程...">
 <meta property="og:type" content="article">
 <meta property="og:title" content="抗击 kdevtmpfs 挖矿病毒篇">
 <meta property="og:url" content="https://jerriodaddy.github.io/2020/09/10/fight-with-kdevtmpfs-virus/index.html">
 <meta property="og:site_name" content="Jerrio&#39;s Blog">
-<meta property="og:description" content="Kdevtmpfs 是一个偷偷运行在服务器上，占用服务器资源进行挖矿的病毒。我有幸遭中了一次，本篇记录了我与它斗智斗勇的过程…">
+<meta property="og:description" content="Kdevtmpfs 是一个偷偷运行在服务器上，占用服务器资源进行挖矿的病毒。我有幸遭中了一次，本篇记录了我与它斗智斗勇的过程...">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://jerriodaddy.github.io/2020/09/10/fight-with-kdevtmpfs-virus/1.jpg">
 <meta property="og:image" content="https://jerriodaddy.github.io/2020/09/10/fight-with-kdevtmpfs-virus/2.jpg">
@@ -100,9 +100,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">7</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">6</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">10</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">8</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">11</span></a></li>
         <li class="menu-item menu-item-rss"><a href="/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>RSS</a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a></li>
       <li class="menu-item menu-item-search">
@@ -161,7 +161,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%97%85%E6%AF%92%E8%A1%8C%E4%B8%BA%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">病毒行为：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">解决方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">相关文章：</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">解决方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0"><span class="nav-number">2.</span> <span class="nav-text">相关文章：</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -176,18 +176,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -301,7 +301,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>1.7k</span>
+      <span>1.8k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -319,48 +319,48 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <img src=2020/09/10/fight-with-kdevtmpfs-virus/virus.jpeg style="width:85%;"/>
-
+        <p><img src=2020/09/10/fight-with-kdevtmpfs-virus/virus.jpeg style="width:85%;"/></p>
 <!-- ![virus](2020/09/10/fight-with-kdevtmpfs-virus/virus.jpeg) -->
-
-<p>Kdevtmpfs 是一个偷偷运行在服务器上，占用服务器资源进行挖矿的病毒。我有幸遭中了一次，本篇记录了我与它斗智斗勇的过程…</p>
+<p>Kdevtmpfs 是一个偷偷运行在服务器上，占用服务器资源进行挖矿的病毒。我有幸遭中了一次，本篇记录了我与它斗智斗勇的过程...</p>
 <span id="more"></span>
-<p>系统环境：Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0-186-generic x86_64)</p>
-<h3 id="病毒行为："><a href="#病毒行为：" class="headerlink" title="病毒行为："></a>病毒行为：</h3><ul>
-<li>占用 90+ CPU使用率进行挖矿</li>
-<li>偷偷设置定时任务（crontab -l）</li>
-<li>通过一俄罗斯服务器（93.189.43.3）偷偷下载脚本</li>
-<li>守护进程 kinsing 存在 /var/tmp</li>
-<li>挖矿进程 kdevtmpfsi 存在 /tmp</li>
-<li>有个进程名为 kdevtmpfs 的主进程是系统的 kthreadd，重启后还存在 (这个貌似不是病毒，因为我运行另一台正常服务器也有此进程，应该是病毒模仿此进程的名字)</li>
-</ul>
-<h3 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h3><ol>
-<li>删除守护进程 $ sudo rm /var/tmp/kinsing </li>
+<p>系统环境：Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0-186-generic x86_64) ### 病毒行为： - 占用 90+ CPU使用率进行挖矿 - 偷偷设置定时任务（crontab -l） - 通过一俄罗斯服务器（93.189.43.3）偷偷下载脚本 - 守护进程 kinsing 存在 /var/tmp - 挖矿进程 kdevtmpfsi 存在 /tmp - 有个进程名为 kdevtmpfs 的主进程是系统的 kthreadd，重启后还存在 (这个貌似不是病毒，因为我运行另一台正常服务器也有此进程，应该是病毒模仿此进程的名字)</p>
+<h3 id="解决方法">解决方法：</h3>
+<ol type="1">
+<li>删除守护进程 $ sudo rm /var/tmp/kinsing</li>
 <li>删除挖矿进程 $ sudo rm /tmp/kdevtmpfsi</li>
-<li>清空定时任务 “$crontab -e”，  “$sudo crontab -e”，这两个都看一下，分别对应当前用户和系统用户。</li>
+<li>清空定时任务 “<span class="math inline">\(crontab -e”， “\)</span>sudo crontab -e”，这两个都看一下，分别对应当前用户和系统用户。</li>
 <li>Kill kinsing 和 kdevtmpfsi 进程。</li>
 <li>把 195.3.146.118; 45.67.230.68; 93.189.43.3 加入黑名单</li>
 <li>Redis &amp; Scrapyd 安全配置</li>
 </ol>
-<h3 id="相关文章："><a href="#相关文章：" class="headerlink" title="相关文章："></a>相关文章：</h3><ol>
-<li>服务器遭 kdevtmpfsi挖矿程序入侵的分析与解决<br><a target="_blank" rel="noopener" href="http://www.shareyuanma.com/source/article/newarticle/5054.html">http://www.shareyuanma.com/source/article/newarticle/5054.html</a></li>
-<li>Linux 开机(脚本)启动顺序<br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e1442913eb0e">https://www.jianshu.com/p/e1442913eb0e</a></li>
-<li>Redis 安全配置<br><a target="_blank" rel="noopener" href="https://help.aliyun.com/knowledge_detail/37447.html?spm=a2c4g.11186631.2.2.828c1848kuRv6p">https://help.aliyun.com/knowledge_detail/37447.html?spm=a2c4g.11186631.2.2.828c1848kuRv6p</a></li>
-<li>利用Redis写入SSH公钥获取服务器登陆权限<br><a target="_blank" rel="noopener" href="http://lichengxiao.cn/17.html">http://lichengxiao.cn/17.html</a></li>
-<li>处理 kdevtmpfsi 挖矿病毒<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/amaxiaochen/article/details/103742982">https://blog.csdn.net/amaxiaochen/article/details/103742982</a></li>
+<h3 id="相关文章">相关文章：</h3>
+<ol type="1">
+<li>服务器遭 kdevtmpfsi挖矿程序入侵的分析与解决 http://www.shareyuanma.com/source/article/newarticle/5054.html</li>
+<li>Linux 开机(脚本)启动顺序 https://www.jianshu.com/p/e1442913eb0e</li>
+<li>Redis 安全配置 https://help.aliyun.com/knowledge_detail/37447.html?spm=a2c4g.11186631.2.2.828c1848kuRv6p</li>
+<li>利用Redis写入SSH公钥获取服务器登陆权限 http://lichengxiao.cn/17.html</li>
+<li>处理 kdevtmpfsi 挖矿病毒 https://blog.csdn.net/amaxiaochen/article/details/103742982</li>
 </ol>
-<hr>
-<p>2020/7/28<br>发现病毒行为并进行排查。<br>通过 iftop 发现服务器长时间和 93.189.43.3 有着低速率的数据传输，应该是在偷偷下载脚本。<br>通过 “netstat -atp” 发现 93.189.43.3 对应的 PID 是 wget。</p>
-<p><img src="1.jpg" alt="1"></p>
+<hr />
+<p>2020/7/28 发现病毒行为并进行排查。 通过 iftop 发现服务器长时间和 93.189.43.3 有着低速率的数据传输，应该是在偷偷下载脚本。 通过 “netstat -atp” 发现 93.189.43.3 对应的 PID 是 wget。</p>
+<figure>
+<img src="1.jpg" alt="1" /><figcaption aria-hidden="true">1</figcaption>
+</figure>
 <p>结合之前发现病毒偷偷设置的定时任务，确定了其中的联系。</p>
-<p><img src="2.jpg" alt="2"></p>
+<figure>
+<img src="2.jpg" alt="2" /><figcaption aria-hidden="true">2</figcaption>
+</figure>
 <p>守护进程运行中，ip 也对上了。</p>
-<p><img src="3.jpg" alt="3"></p>
-<p>根据[1]的描述是redis被入侵了，但我未证实。<br>删除 kinsing，kdevtmpfs 并清空 crontab 后过一段时间定时任务（crontab）还是会自动被写入，猜测被植入了后门或是脚本文件未清除干净。执行了解决方法1~4后，暂无复发情况，先观察两天再说。<br>2020/8/1<br>今天病毒又出现了，所属从用户变成了root，由内核进程 /sbin/init 创建（ppid = 1）。<br>查看了 /etc/init.d/rc 启动脚本文件并没有发现病毒自启代码。</p>
-<p>2020/8/6<br>参考[3][4]，发现了用户目录下/.ssh/known_hosts文件里存在陌生公钥，删除之并加固redis安全策略。但好像还是不起作用，病毒还能通过某种方式，自动添加定时任务，向195.3.146.118 下载病毒脚本，然后向 45.67.230.68 下载 kinsing。</p>
-<p><img src="4.jpg" alt="4"></p>
+<figure>
+<img src="3.jpg" alt="3" /><figcaption aria-hidden="true">3</figcaption>
+</figure>
+<p>根据[1]的描述是redis被入侵了，但我未证实。 删除 kinsing，kdevtmpfs 并清空 crontab 后过一段时间定时任务（crontab）还是会自动被写入，猜测被植入了后门或是脚本文件未清除干净。执行了解决方法1~4后，暂无复发情况，先观察两天再说。 2020/8/1 今天病毒又出现了，所属从用户变成了root，由内核进程 /sbin/init 创建（ppid = 1）。 查看了 /etc/init.d/rc 启动脚本文件并没有发现病毒自启代码。</p>
+<p>2020/8/6 参考[3][4]，发现了用户目录下/.ssh/known_hosts文件里存在陌生公钥，删除之并加固redis安全策略。但好像还是不起作用，病毒还能通过某种方式，自动添加定时任务，向195.3.146.118 下载病毒脚本，然后向 45.67.230.68 下载 kinsing。</p>
+<figure>
+<img src="4.jpg" alt="4" /><figcaption aria-hidden="true">4</figcaption>
+</figure>
 <p>无奈只能终极解决办法，封禁相关IP（195.3.146.118; 45.67.230.68; 93.189.43.3）</p>
-<p>2020/8/11<br>找到了入侵入口— scrapyd 服务器<br>原因：scrapyd 的 api 开放后，任何人都可以上传任何 python 代码并且通过 scrapyd 让其在服务器运行，并且 scrapyd 的权限是 root 。现认为，攻击者通过此方式下载并执行挖矿病毒。但除此之外的攻击者做没做其他事情，暂且未知。<br>线索：通过 ps aux 查看到病毒进程 kingdevfsi 和 kingsing 通过 systemctl … status 查看到这两个进程关联到scrapyd进程 并且上面图中的 wget 进程也同样关联到 scrapyd 进程，遂认为 scrapyd 有很大嫌疑。<br>方案：关闭scrapyd服务，清除本地病毒。</p>
+<p>2020/8/11 找到了入侵入口— scrapyd 服务器 原因：scrapyd 的 api 开放后，任何人都可以上传任何 python 代码并且通过 scrapyd 让其在服务器运行，并且 scrapyd 的权限是 root 。现认为，攻击者通过此方式下载并执行挖矿病毒。但除此之外的攻击者做没做其他事情，暂且未知。 线索：通过 ps aux 查看到病毒进程 kingdevfsi 和 kingsing 通过 systemctl … status 查看到这两个进程关联到scrapyd进程 并且上面图中的 wget 进程也同样关联到 scrapyd 进程，遂认为 scrapyd 有很大嫌疑。 方案：关闭scrapyd服务，清除本地病毒。</p>
 
     </div>
 
@@ -435,14 +435,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Symbols count total: </span>
-    <span title="Symbols count total">33k</span>
+    <span title="Symbols count total">34k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Reading time total &asymp;</span>
-    <span title="Reading time total">30 mins.</span>
+    <span title="Reading time total">31 mins.</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -478,6 +478,8 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.8/dist/mermaid.min.js","integrity":"sha256-QmSAc2kIaUjleIJ46X7qPW2zrpCbXlMz3YIGgWpQ1Jo="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
 
 
   <script src="/js/third-party/pace.js"></script>
@@ -486,6 +488,12 @@
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 

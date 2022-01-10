@@ -21,17 +21,17 @@
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"jerriodaddy.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true}}</script><script src="/js/config.js"></script>
-<meta name="description" content="Generally speaking, application access security is developed around the two core concepts of Authentication and Authorization. You first need to determine the identity of the user, and determine wheth">
+<meta name="description" content="Generally speaking, application access security is developed around the two core concepts of Authentication and Authorization. You first need to determine the identity of the user, and determine whet">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Authentication and Authorization: Spring Security + OAuth2">
 <meta property="og:url" content="https://jerriodaddy.github.io/2021/04/27/authentication-and-authorization/index.html">
 <meta property="og:site_name" content="Jerrio&#39;s Blog">
-<meta property="og:description" content="Generally speaking, application access security is developed around the two core concepts of Authentication and Authorization. You first need to determine the identity of the user, and determine wheth">
+<meta property="og:description" content="Generally speaking, application access security is developed around the two core concepts of Authentication and Authorization. You first need to determine the identity of the user, and determine whet">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://jerriodaddy.github.io/2021/04/27/authentication-and-authorization/oauth2handshake.png">
 <meta property="og:image" content="https://jerriodaddy.github.io/2021/04/27/authentication-and-authorization/spring_cloud_security_dependencies.png">
 <meta property="article:published_time" content="2021-04-27T12:11:00.000Z">
-<meta property="article:modified_time" content="2021-04-30T08:39:31.542Z">
+<meta property="article:modified_time" content="2022-01-09T16:03:38.615Z">
 <meta property="article:author" content="Jerrio">
 <meta property="article:tag" content="Security">
 <meta name="twitter:card" content="summary">
@@ -97,9 +97,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">7</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">6</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">10</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">9</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">8</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">11</span></a></li>
         <li class="menu-item menu-item-rss"><a href="/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>RSS</a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a></li>
       <li class="menu-item menu-item-search">
@@ -158,7 +158,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-OAuth2"><span class="nav-number">1.</span> <span class="nav-text">What is OAuth2?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Security"><span class="nav-number">2.</span> <span class="nav-text">Spring Security</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#unfinished%E2%80%A6"><span class="nav-number">2.1.</span> <span class="nav-text">[unfinished…]</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Cloud-Security"><span class="nav-number">3.</span> <span class="nav-text">Spring Cloud Security</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference-amp-Relative-Reading"><span class="nav-number">4.</span> <span class="nav-text">Reference &amp; Relative Reading</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#what-is-oauth2"><span class="nav-number">1.</span> <span class="nav-text">What is OAuth2?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-security"><span class="nav-number">2.</span> <span class="nav-text">Spring Security</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#unfinished..."><span class="nav-number">2.1.</span> <span class="nav-text">[unfinished...]</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-cloud-security"><span class="nav-number">3.</span> <span class="nav-text">Spring Cloud Security</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference-relative-reading"><span class="nav-number">4.</span> <span class="nav-text">Reference &amp; Relative Reading</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -173,18 +173,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -268,7 +268,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2021-04-30 16:39:31" itemprop="dateModified" datetime="2021-04-30T16:39:31+08:00">2021-04-30</time>
+      <time title="Modified: 2022-01-10 00:03:38" itemprop="dateModified" datetime="2022-01-10T00:03:38+08:00">2022-01-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -294,7 +294,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">Symbols count in article: </span>
-      <span>2.5k</span>
+      <span>2.3k</span>
     </span>
     <span class="post-meta-item" title="Reading time">
       <span class="post-meta-item-icon">
@@ -312,37 +312,43 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>Generally speaking, application access security is developed around the two core concepts of <strong>Authentication</strong> and <strong>Authorization</strong>. You first need to determine the identity of the user, and determine whether the user has the authority to access the specified resource…</p>
-<span id="more"></span>
-
-<p>Generally speaking, application access security is developed around the two core concepts of <strong>Authentication</strong> and <strong>Authorization</strong>. You first need to determine the identity of the user, and determine whether the user has the authority to access the specified resource. There are many solutions for authentication, the mainstream ones are <code>CAS</code>, <code>SAML2</code>, <code>OAUTH2</code>, etc. The single sign-on (SSO) solution we often talk about refer to this. The mainstream authorization architectures are Spring Security and Shiro.</p>
-<p>Compared with Spring Security, Shiro is said to be relatively lighter, but I have not felt much difference in usage for the time being. Recently, I mainly pick Spring Security when choosing framework, because it makes me feel good to collect a set of “Spring”. 一家人就要整整齐齐:)</p>
-<h2 id="What-is-OAuth2"><a href="#What-is-OAuth2" class="headerlink" title="What is OAuth2?"></a>What is OAuth2?</h2><p>Before we go for Spring Security，let’s start with OAuth2. OAuth2 is an open standard for authorization. The core idea is to authenticate users through various authentication methods (what OAuth2 does not care about) and issue tokens so that third-party applications can use the token for a limited time, restricted access to specified resources. The main RFC specifications involved are <code>RFC6749</code> (overall authorization framework), <code>RFC6750</code> (token use), and 1RFC68191 (threat model). Generally, what we need to understand is RFC6749. There are four main ways to obtain a token, which are Authorization Code, Implicit Grant Type, Resource Owner Password Credentials Grant, Client Credentials Grant. More detailed -&gt; <a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html">理解OAuth 2.0</a></p>
-<p>The following figure is the handshake process of OAuth2 protocol (cite from <a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc6749"><code>RFC6749</code></a>):</p>
+        <!-- Generally speaking, application access security is developed around the two core concepts of **Authentication** and **Authorization**. You first need to determine the identity of the user, and determine whether the user has the authority to access the specified resource...
+more -->
+<p>Generally speaking, application access security is developed around the two core concepts of <strong>Authentication</strong> and <strong>Authorization</strong>. You first need to determine the identity of the user, and determine whether the user has the authority to access the specified resource. There are many solutions for authentication, the mainstream ones are <code>CAS</code>, <code>SAML2</code>, <code>OAUTH2</code>, etc. The single sign-on (SSO) solution we often talk about refer to this. The mainstream authorization architectures are Spring Security and Shiro. <span id="more"></span></p>
+<p>Compared with Spring Security, Shiro is said to be relatively lighter, but I have not felt much difference in usage for the time being. Recently, I mainly pick Spring Security when choosing framework, because it makes me feel good to collect a set of "Spring". 一家人就要整整齐齐:)</p>
+<h2 id="what-is-oauth2">What is OAuth2?</h2>
+<p>Before we go for Spring Security，let's start with OAuth2. OAuth2 is an open standard for authorization. The core idea is to authenticate users through various authentication methods (what OAuth2 does not care about) and issue tokens so that third-party applications can use the token for a limited time, restricted access to specified resources. The main RFC specifications involved are <code>RFC6749</code> (overall authorization framework), <code>RFC6750</code> (token use), and 1RFC68191 (threat model). Generally, what we need to understand is RFC6749. There are four main ways to obtain a token, which are Authorization Code, Implicit Grant Type, Resource Owner Password Credentials Grant, Client Credentials Grant. More detailed -&gt; <a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html">理解OAuth 2.0</a></p>
+The following figure is the handshake process of OAuth2 protocol (cite from <a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc6749"><code>RFC6749</code></a>):
 <center>
-    <img style="border-radius: 0.3125em;
+<img style="border-radius: 0.3125em;
     box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
-    src="oauth2handshake.png">
-    <br>
-    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    src="oauth2handshake.png"> <br>
+<div style="color:orange; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
     color: #999;
-    padding: 2px;">OAuth2 Handshake Process</div>
+    padding: 2px;">
+OAuth2 Handshake Process
+</div>
 </center>
-
-<p><code>Resource Owner</code>: The user who owns the resource being accessed.<br><code>User-agent</code>: It generally represents the browser.<br><code>Client</code>: Third-party applications.<br><code>Authorization Server</code>: used to authenticate users and issue tokens.<br><code>Resource Server</code>：the server that owns the resource being accessed, needs to use the token to determine whether it has permission to access.</p>
-<h2 id="Spring-Security"><a href="#Spring-Security" class="headerlink" title="Spring Security"></a>Spring Security</h2><p>Spring Security is a set of security frameworks that can control user access rights based on RBAC (role-based access control). The core idea is to intercept and filter through a series of filter chains.</p>
-<h3 id="unfinished…"><a href="#unfinished…" class="headerlink" title="[unfinished…]"></a>[<em>unfinished…</em>]</h3><h2 id="Spring-Cloud-Security"><a href="#Spring-Cloud-Security" class="headerlink" title="Spring Cloud Security"></a>Spring Cloud Security</h2><p>The following figure shows the dependencies of Spring Cloud Security (2.2.5.RELEASE). It appears that Spring Cloud Security is a superset of Spring Security. In addition to having all the functions of Spring Security, it has more functions such as health check and load balancing.</p>
-<p><img src="spring_cloud_security_dependencies.png" alt="spring_cloud_security_dependencies"></p>
-<h2 id="Reference-amp-Relative-Reading"><a href="#Reference-amp-Relative-Reading" class="headerlink" title="Reference &amp; Relative Reading"></a>Reference &amp; Relative Reading</h2><ol>
-<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/nvKKNSJuIrGuHeJkUeO7rw">手把手教你搞定权限管理，结合Spring Security实现接口的动态权限控制！</a> </p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/cb886f995e86">深入理解Spring Cloud Security OAuth2及JWT</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html">理解OAuth 2.0</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc6749">RFC6749 - The OAuth 2.0 Authorization Framework</a></p>
-</li>
+<p><code>Resource Owner</code>: The user who owns the resource being accessed.<br />
+<code>User-agent</code>: It generally represents the browser.<br />
+<code>Client</code>: Third-party applications.<br />
+<code>Authorization Server</code>: used to authenticate users and issue tokens.<br />
+<code>Resource Server</code>：the server that owns the resource being accessed, needs to use the token to determine whether it has permission to access.</p>
+<h2 id="spring-security">Spring Security</h2>
+<p>Spring Security is a set of security frameworks that can control user access rights based on RBAC (role-based access control). The core idea is to intercept and filter through a series of filter chains.</p>
+<h3 id="unfinished...">[<em>unfinished...</em>]</h3>
+<h2 id="spring-cloud-security">Spring Cloud Security</h2>
+<p>The following figure shows the dependencies of Spring Cloud Security (2.2.5.RELEASE). It appears that Spring Cloud Security is a superset of Spring Security. In addition to having all the functions of Spring Security, it has more functions such as health check and load balancing.</p>
+<figure>
+<img src="spring_cloud_security_dependencies.png" alt="spring_cloud_security_dependencies" /><figcaption aria-hidden="true">spring_cloud_security_dependencies</figcaption>
+</figure>
+<h2 id="reference-relative-reading">Reference &amp; Relative Reading</h2>
+<ol type="1">
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/nvKKNSJuIrGuHeJkUeO7rw">手把手教你搞定权限管理，结合Spring Security实现接口的动态权限控制！</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/cb886f995e86">深入理解Spring Cloud Security OAuth2及JWT</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html">理解OAuth 2.0</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc6749">RFC6749 - The OAuth 2.0 Authorization Framework</a></p></li>
 </ol>
 
     </div>
@@ -417,14 +423,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>Symbols count total: </span>
-    <span title="Symbols count total">33k</span>
+    <span title="Symbols count total">34k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>Reading time total &asymp;</span>
-    <span title="Reading time total">30 mins.</span>
+    <span title="Reading time total">31 mins.</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -460,6 +466,8 @@
 <script src="/js/third-party/search/local-search.js"></script>
 
 
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.8/dist/mermaid.min.js","integrity":"sha256-QmSAc2kIaUjleIJ46X7qPW2zrpCbXlMz3YIGgWpQ1Jo="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
 
 
   <script src="/js/third-party/pace.js"></script>
@@ -468,6 +476,12 @@
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 
